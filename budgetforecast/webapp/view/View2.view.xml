@@ -1,0 +1,154 @@
+<mvc:View
+    controllerName="pgp.com.budgetforecast.controller.View2"
+    height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:Table="sap.ui.table"
+>
+    <f:DynamicPage
+        headerExpanded="true"
+        showFooter="true"
+    >
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Budget Forecast" />
+                </f:heading>
+                <f:actions>
+                    <Button
+                        text="Edit"
+                        type="Emphasized"
+                    />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <f:content>
+                    <form:SimpleForm
+                        editable="true"
+                        layout="ColumnLayout"
+                    >
+                        <form:content>
+                            <Label text="Budget Code" />
+                            <Input
+                                showValueHelp="true"
+                                placeholder="Budget Code"
+                                showSuggestion="true"
+                            />
+                            <Label text="Financial Year" />
+                            <Input
+                                showValueHelp="true"
+                                placeholder="Financial Year"
+                                showSuggestion="true"
+                            />
+                            <Label text="WBS" />
+                            <Input
+                                showValueHelp="true"
+                                placeholder="WBS"
+                                showSuggestion="true"
+                            />
+                            <Label text="Released Budget" />
+                            <Input
+                                showValueHelp="true"
+                                placeholder="Released Budget"
+                                showSuggestion="true"
+                            />
+                            <Label text="Utilized Budget" />
+                            <Input
+                                showValueHelp="true"
+                                placeholder="Utilized Budget"
+                                showSuggestion="true"
+                            />
+                        </form:content>
+                    </form:SimpleForm>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table>
+                <columns>
+                    <Column hAlign="Center">
+                        <Text text="Apr" />
+                    </Column>
+                  <Column hAlign="Center">
+                        <Text text="May" />
+                    </Column>
+                   <Column hAlign="Center">
+                        <Text text="Jun" />
+                    </Column>
+                   <Column hAlign="Center">
+                        <Text text="Jul" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Aug" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Sep" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Oct" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Nov" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Dec" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Jan" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Feb" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Mar" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                            <Input />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+
+                <Button
+                    text="Save"
+                    press="onSave"
+                    type="Accept"
+                />
+                <Button
+                    text="Cancel"
+                    press="onCancel"
+                    type="Reject"
+                />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

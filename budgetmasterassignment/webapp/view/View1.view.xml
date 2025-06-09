@@ -1,0 +1,150 @@
+<mvc:View
+    controllerName="pgp.com.budgetmasterassignment.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:Table="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+>
+    <Page title="Budget Master Assignments">
+        <content>
+            <fb:FilterBar
+                persistencyKey="myPersKey"
+                useToolbar="false"
+                search=".onSearch"
+                showFilterConfiguration="false"
+                showClearOnFB="true"
+            >
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem
+                        name="code"
+                        label="Budget Code"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input placeholder="Budget Code" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name=" Year"
+                        label="Financial Year"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input placeholder="Financial Year" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem
+                        name="WBS"
+                        label="WBS"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input placeholder="WBS" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            <Table:Table
+                id="table"
+                selectionMode="{oGlobleModel>/rowMode}"
+                rows="{ModelForTable>/}"
+                ariaLabelledBy="title"
+                rowSelectionChange="onClickofItem"
+            >
+                <Table:extension>
+                    <OverflowToolbar
+                        design="Transparent"
+                        width="100%"
+                    >
+                        <content>
+                            <Title
+                                text="Assignments"
+                                level="H2"
+                            />
+
+                            <ToolbarSpacer />
+
+                            <Button
+                                text="Add New"
+                                icon="sap-icon://add"
+                                type="Accept"
+                                press="onAddNew"
+                            />
+                            <Button
+                                text="Delete"
+                                icon="sap-icon://delete"
+                                press="_onDelete"
+                                type="Reject"
+                                visible="{oGlobleModel>/deleteButton}"
+                            />
+                        </content>
+                    </OverflowToolbar>
+                </Table:extension>
+                <Table:columns>
+                    <Table:Column
+                        id="Pafno"
+                        sortProperty="Pafno"
+                    >
+                        <Label
+                            text="Budget Code"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text
+                                text="{path:'ModelForTable>Pafno'}"
+                                wrapping="false"
+                            />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column
+                        id="Soname"
+                        sortProperty="Soname"
+                    >
+                        <Label
+                            text="Description"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text
+                                text="{ModelForTable>Soname}({ModelForTable>Vkbur})"
+                            />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column
+                        id="Name"
+                        sortProperty="Name"
+                    >
+                        <Label
+                            text="Financial Year"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text
+                                text="{ModelForTable>Name}"
+                                wrapping="true"
+                            />
+                        </Table:template>
+                    </Table:Column>
+
+                    <Table:Column
+                        id="Kunnr"
+                        sortProperty="Kunnr"
+                    >
+                        <Label
+                            text="WBS"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                </Table:columns>
+            </Table:Table>
+        </content>
+    </Page>
+</mvc:View>

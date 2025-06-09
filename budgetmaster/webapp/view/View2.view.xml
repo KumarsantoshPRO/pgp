@@ -1,0 +1,143 @@
+<mvc:View
+    controllerName="pgp.com.budgetmaster.controller.View2"
+    height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <f:DynamicPage
+        headerExpanded="true"
+        showFooter="true"
+    >
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Project Details" />
+                </f:heading>
+                <f:actions>
+                    <Button
+                        text="Edit"
+                        type="Emphasized"
+                    />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:content>
+            <form:SimpleForm
+                editable="true"
+                layout="ColumnLayout"
+            >
+                <form:content>
+                    <Label text="Project/BAU" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Project/BAU"
+                        showSuggestion="true"
+                        value="{oModel>/PRJ_TYPE}"
+                    />
+                    <Label text="Initiative" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Initiative"
+                        showSuggestion="true"
+                        value="{oModel>/ZINITI}"
+                    />
+                    <Label text="Technology" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Technology"
+                        showSuggestion="true"
+                        value="{oModel>/ZTLIST}"
+                    />
+                    <Label text="Category" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Category"
+                        showSuggestion="true"
+                        value="{oModel>/ZCATEG}"
+                    />
+                    <Label text="Expense Type" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Expense Type"
+                        showSuggestion="true"
+                        value="{oModel>/ZEXPTP}"
+                    />
+                    <Label text="Spend Type" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Spend Type"
+                        showSuggestion="true"
+                        value="{oModel>/ZCAPEX_OPEX}"
+                    />
+                    <Label text="Business Unit" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Business Unit"
+                        showSuggestion="true"
+                        value="{oModel>/WERKS}"
+                    />
+                    <Label text="Responsible" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Responsible"
+                        showSuggestion="true"
+                        value="{oModel>/ZWBS_OWNER}"
+                    />
+                    <Label text="HOD" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="HOD"
+                        showSuggestion="true"
+                        value="{oModel>/ZPRJ_HOD}"
+                    />
+                    <Label text="Remarks" />
+                    <TextArea
+                        placeholder="Remarks"
+                        value="{oModel>/ZREMARKS}"
+                    />
+                    <Label text="Budet Code Description" />
+                    <Input
+                        placeholder="Budet Code Description"
+                        value="{oModel>/ZBUDG_DISC}"
+                    />
+                    <Label text="Active / Inactive" />
+
+                    <Select />
+                    <Label text="Budget Code" />
+                    <Input
+                        showValueHelp="true"
+                        placeholder="Budget Code"
+                        showSuggestion="true"
+                        value="{oModel>/ZBUDG_CODE}"
+                    />
+                </form:content>
+            </form:SimpleForm>
+        </f:content>
+
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+
+                <Button
+                    text="Save"
+                    press="onSave"
+                    type="Accept"
+                />
+                <Button
+                    text="Cancel"
+                    press="onCancel"
+                    type="Reject"
+                />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

@@ -1,12 +1,12 @@
 <mvc:View
-    controllerName="pgp.com.budgetmaster.controller.View1"
+    controllerName="pgp.com.budgetforecast.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"
     xmlns:Table="sap.ui.table"
     xmlns:fb="sap.ui.comp.filterbar"
 >
-    <Page title="Budget Master">
+    <Page title="Budget Forecast">
         <content>
             <fb:FilterBar
                 persistencyKey="myPersKey"
@@ -17,34 +17,34 @@
             >
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem
-                        name="Project"
-                        label="Project"
+                        name="code"
+                        label="Budget Code"
                         groupName="Group1"
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input placeholder="Project" />
+                            <Input placeholder="Budget Code" />
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
-                        name="Technology"
-                        label="Technology"
+                        name=" Year"
+                        label="Financial Year"
                         groupName="Group1"
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input placeholder="Technology" />
+                            <Input placeholder="Financial Year" />
                         </fb:control>
                     </fb:FilterGroupItem>
 
                     <fb:FilterGroupItem
-                        name="Category"
-                        label="Category"
+                        name="WBS"
+                        label="WBS"
                         groupName="Group1"
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input placeholder="Category" />
+                            <Input placeholder="WBS" />
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
@@ -63,7 +63,7 @@
                     >
                         <content>
                             <Title
-                                text="Projects"
+                                text="Assignments"
                                 level="H2"
                             />
 
@@ -74,12 +74,6 @@
                                 icon="sap-icon://add"
                                 type="Accept"
                                 press="onAddNew"
-                            />
-                            <Button
-                                text="Copy"
-                                icon="sap-icon://copy"
-                                type="Neutral"
-                                press="onCopy"
                             />
                             <Button
                                 text="Delete"
@@ -93,151 +87,170 @@
                 </Table:extension>
                 <Table:columns>
                     <Table:Column
-                        id="PRJ_TYPE"
-                        sortProperty="PRJ_TYPE"
+                        id="Pafno"
+                        sortProperty="Pafno"
                     >
                         <Label
-                            text="Project/BAU"
+                            text="Budget Code"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{path:'ModelForTable>PRJ_TYPE'}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZINITI"
-                        sortProperty="ZINITI"
-                    >
-                        <Label
-                            text="Initiative"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZINITI}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZTLIST"
-                        sortProperty="ZTLIST"
-                    >
-                        <Label
-                            text="Technology"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZTLIST}" />
+                            <Text
+                                text="{path:'ModelForTable>Pafno'}"
+                                wrapping="false"
+                            />
                         </Table:template>
                     </Table:Column>
 
                     <Table:Column
-                        id="ZCATEG"
-                        sortProperty="ZCATEG"
+                        id="Name"
+                        sortProperty="Name"
                     >
                         <Label
-                            text="Category"
+                            text="Financial Year"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{ModelForTable>ZCATEG}" />
+                            <Text
+                                text="{ModelForTable>Name}"
+                                wrapping="true"
+                            />
                         </Table:template>
                     </Table:Column>
-                    <Table:Column
-                        id="ZEXPTP"
-                        sortProperty="ZEXPTP"
-                    >
+
+                    <Table:Column id="Kunnr">
                         <Label
-                            text="Expense Type"
+                            text="WBS"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{path:'ModelForTable>ZEXPTP'}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZCAPEX_OPEX"
-                        sortProperty="ZCAPEX_OPEX"
-                    >
-                        <Label
-                            text="Spend Type"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{path:'ModelForTable>ZCAPEX_OPEX'}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="WtotalVol"
-                        sortProperty="WtotalVol"
-                    >
-                        <Label
-                            text="Business Unit"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>WERKS}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZWBS_OWNER"
-                        sortProperty="ZWBS_OWNER"
-                    >
-                        <Label
-                            text="Responsible"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZWBS_OWNER}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZPRJ_HOD"
-                        sortProperty="ZPRJ_HOD"
-                    >
-                        <Label
-                            text="HOD"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ path:'ModelForTable>ZPRJ_HOD' }" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column
-                        id="ZREMARKS"
-                        sortProperty="ZREMARKS"
-                    >
-                        <Label
-                            text="Remarks"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZREMARKS}" />
+                            <Text text="{ModelForTable>Kunnr}" />
                         </Table:template>
                     </Table:Column>
                     <Table:Column>
                         <Label
-                            text="Active / Inactive"
+                            text="Released Budget"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{ModelForTable>}" />
+                            <Text text="{ModelForTable>Kunnr}" />
                         </Table:template>
                     </Table:Column>
                     <Table:Column>
                         <Label
-                            text="Budet Code Description"
+                            text="Utilized Budget"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{ModelForTable>ZBUDG_DISC}" />
+                            <Text text="{ModelForTable>Kunnr}" />
                         </Table:template>
                     </Table:Column>
                     <Table:Column>
                         <Label
-                            text="Budet Code"
+                            text="Apr"
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{ModelForTable>ZBUDG_CODE}" />
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="May"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Jun"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Jul"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Aug"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Sep"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Oct"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Nov"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Dec"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Jan"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Feb"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column>
+                        <Label
+                            text="Mar"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>Kunnr}" />
                         </Table:template>
                     </Table:Column>
                 </Table:columns>

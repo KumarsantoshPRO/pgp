@@ -1,7 +1,7 @@
 {
   "_version": "1.65.0",
   "sap.app": {
-    "id": "pgp.com.budgetmaster",
+    "id": "pgp.com.budgetmasterassignment",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,18 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.15.6",
-      "toolsId": "56132352-6ba6-493c-8af0-f6027b8f29ca"
-    },
-    "dataSources": {
-      "ZBUDGET_MASTER_SRV": {
-        "uri": "/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      }
+      "toolsId": "555e042f-ab2a-4b0c-b7f5-62137609426c"
     }
   },
   "sap.ui": {
@@ -60,20 +49,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "pgp.com.budgetmaster.i18n.i18n"
-        }
-      },
-      "": {
-        "preload": true,
-        "dataSource": "ZBUDGET_MASTER_SRV",
-        "settings": {
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": false,
-          "useBatch": false,
-          "metadataUrlParams": {
-            "sap-value-list": "none"
-          }
+          "bundleName": "pgp.com.budgetmasterassignment.i18n.i18n"
         }
       }
     },
@@ -92,9 +68,9 @@
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
-        "path": "pgp.com.budgetmaster.view",
+        "path": "pgp.com.budgetmasterassignment.view",
         "async": true,
-        "viewPath": "pgp.com.budgetmaster.view"
+        "viewPath": "pgp.com.budgetmasterassignment.view"
       },
       "routes": [
         {
@@ -121,7 +97,7 @@
       }
     },
     "rootView": {
-      "viewName": "pgp.com.budgetmaster.view.App",
+      "viewName": "pgp.com.budgetmasterassignment.view.App",
       "type": "XML",
       "id": "App"
     }

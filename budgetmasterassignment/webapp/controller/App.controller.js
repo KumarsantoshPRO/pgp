@@ -3,7 +3,7 @@ sap.ui.define([
 ], (Controller) => {
   "use strict";
 
-  return Controller.extend("pgp.com.budgetmaster.controller.App", {
+  return Controller.extend("pgp.com.budgetmasterassignment.controller.App", {
       onInit() {
       }
   });
