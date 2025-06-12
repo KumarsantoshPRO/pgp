@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZBUDGET_MASTER_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="et_budget_master" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MANDT"/>
+                    <PropertyRef Name="PRJ_TYPE"/>
+                    <PropertyRef Name="ZINITI"/>
+                    <PropertyRef Name="ZTLIST"/>
+                    <PropertyRef Name="ZCATEG"/>
+                    <PropertyRef Name="ZEXPTP"/>
+                    <PropertyRef Name="ZCAPEX_OPEX"/>
+                    <PropertyRef Name="WERKS"/>
+                </Key>
+                <Property Name="MANDT" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PRJ_TYPE" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Project Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZINITI" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Initiative" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZTLIST" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Technology List" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZCATEG" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZEXPTP" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Expense Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZCAPEX_OPEX" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Capex Opex" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WERKS" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_CODE" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Budget Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_DISC" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Budget Code Descript" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_STATUS" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Budget Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZWBS_OWNER" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Pers.Resp.No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZPRJ_HOD" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Project HOD" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZREMARKS" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Remarks" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="et_budget_master_assign" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MANDT"/>
+                    <PropertyRef Name="ZBUDG_CODE"/>
+                </Key>
+                <Property Name="MANDT" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_CODE" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Budget Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_DISC" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Budget Code Descript" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZWBS_YEAR" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="WBS YEAR" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="POSID" Type="Edm.String" Nullable="false" MaxLength="24" sap:unicode="false" sap:label="WBS Element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="et_budget_forecast" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MANDT"/>
+                    <PropertyRef Name="ZBUDG_CODE"/>
+                    <PropertyRef Name="ZWBS_YEAR"/>
+                    <PropertyRef Name="POSID"/>
+                </Key>
+                <Property Name="MANDT" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZBUDG_CODE" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Budget Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZWBS_YEAR" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="WBS YEAR" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="POSID" Type="Edm.String" Nullable="false" MaxLength="24" sap:unicode="false" sap:label="WBS Element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZREL_BEDG" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Released Budget" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZACTU_EXP" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Actual Expense" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZAPR" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="April" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZMAY" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="May" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZJUNE" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="June" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZJULY" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="July" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZAUG" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="August" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZSEPT" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="September" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZOCT" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="October" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZNOV" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="November" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZDEC" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="December" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZJAN" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="January" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZFEB" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="February" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZMARCH" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="March" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="ZBUDGET_MASTER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="et_budget_masterSet" EntityType="ZBUDGET_MASTER_SRV.et_budget_master" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="et_budget_master_assignSet" EntityType="ZBUDGET_MASTER_SRV.et_budget_master_assign" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="et_budget_forecastSet" EntityType="ZBUDGET_MASTER_SRV.et_budget_forecast" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="https://vhpvagsdci.sap.pgpfirst.com:44300/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://vhpvagsdci.sap.pgpfirst.com:44300/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -6,11 +6,6 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:form="sap.ui.layout.form"
-    xmlns:plugins="sap.m.plugins"
-    xmlns:columnmenu="sap.m.table.columnmenu"
-    xmlns:vm="sap.ui.fl.variants"
-    xmlns:dnd="sap.ui.core.dnd"
-    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
     <f:DynamicPage
         headerExpanded="true"
@@ -25,6 +20,23 @@
                     <Button
                         text="Edit"
                         type="Emphasized"
+                        press="onEditButtonPress"
+                        visible="{oPropertyModel>/editButton}"
+                        icon="sap-icon://edit"
+                    />
+                    <Button
+                        text="Copy"
+                        type="Neutral"
+                        press="onCopyButtonPress"
+                        visible="{oPropertyModel>/copyButton}"
+                        icon="sap-icon://copy"
+                    />
+                    <Button
+                        text="Delete"
+                        press="onDeleteButtonPress"
+                        type="Reject"
+                        visible="{oPropertyModel>/deleteButton}"
+                        icon="sap-icon://delete"
                     />
                 </f:actions>
             </f:DynamicPageTitle>
@@ -37,88 +49,177 @@
             >
                 <form:content>
                     <Label text="Project/BAU" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Project/BAU"
-                        showSuggestion="true"
-                        value="{oModel>/PRJ_TYPE}"
-                    />
+                    <Select
+                        selectedKey="{oModel>/PRJ_TYPE}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="Project"
+                            text="Project"
+                        />
+                        <core:Item
+                            key="BAU"
+                            text="BAU"
+                        />
+                    </Select>
                     <Label text="Initiative" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Initiative"
-                        showSuggestion="true"
-                        value="{oModel>/ZINITI}"
-                    />
+                    <Select
+                        items="{/ZpsBudInitSet}"
+                        selectedKey="{oModel>/ZINITI}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select>
                     <Label text="Technology" />
-                    <Input
+                    <!-- <Input
                         showValueHelp="true"
                         placeholder="Technology"
                         showSuggestion="true"
                         value="{oModel>/ZTLIST}"
-                    />
+                    /> -->
+                    <Select
+                        items="{/ZpsBudTechSet}"
+                        selectedKey="{oModel>/ZTLIST}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select>
                     <Label text="Category" />
-                    <Input
+                    <!-- <Input
                         showValueHelp="true"
                         placeholder="Category"
                         showSuggestion="true"
                         value="{oModel>/ZCATEG}"
-                    />
+                    /> -->
+                    <Select
+                        items="{/ZpsBudCateSet}"
+                        selectedKey="{oModel>/ZCATEG}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select>
                     <Label text="Expense Type" />
-                    <Input
+                    <!-- <Input
                         showValueHelp="true"
                         placeholder="Expense Type"
                         showSuggestion="true"
                         value="{oModel>/ZEXPTP}"
-                    />
+                    /> -->
+                    <Select
+                        items="{/ZpsBudExpeSet}"
+                        selectedKey="{oModel>/ZEXPTP}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select>
                     <Label text="Spend Type" />
-                    <Input
+                    <!-- <Input
                         showValueHelp="true"
                         placeholder="Spend Type"
                         showSuggestion="true"
                         value="{oModel>/ZCAPEX_OPEX}"
-                    />
+                    /> -->
+                    <Select
+                        items="{/ZpsBudSptypeSet}"
+                        selectedKey="{oModel>/ZCAPEX_OPEX}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select>
                     <Label text="Business Unit" />
-                    <Input
-                        showValueHelp="true"
+                    <Select
+                        items="{/ZpsBudPlantSet}"
+                        selectedKey="{oModel>/WERKS}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{Werks}"
+                            text="{Name1}"
+                        />
+                    </Select>
+                    <!-- <Input
                         placeholder="Business Unit"
-                        showSuggestion="true"
                         value="{oModel>/WERKS}"
-                    />
+                        editable="{oPropertyModel>/keyField}"
+                    /> -->
                     <Label text="Responsible" />
                     <Input
                         showValueHelp="true"
                         placeholder="Responsible"
                         showSuggestion="true"
-                        value="{oModel>/ZWBS_OWNER}"
+                        valueHelpRequest="onresValueHelp"
+                        value="{oModelTempValue>/ResName}{oModel>/ZWBS_OWNER}"
+                        editable="{oPropertyModel>/editClicked}"
+                        valueHelpOnly="true"
                     />
+
                     <Label text="HOD" />
                     <Input
                         showValueHelp="true"
                         placeholder="HOD"
                         showSuggestion="true"
-                        value="{oModel>/ZPRJ_HOD}"
+                        valueHelpRequest="onHODValueHelp"
+                        value="{oModelTempValue>/HODName}{oModel>/ZPRJ_HOD}"
+                        editable="{oPropertyModel>/editClicked}"
+                        valueHelpOnly="true"
                     />
                     <Label text="Remarks" />
                     <TextArea
                         placeholder="Remarks"
                         value="{oModel>/ZREMARKS}"
+                        editable="{oPropertyModel>/editClicked}"
                     />
                     <Label text="Budet Code Description" />
                     <Input
                         placeholder="Budet Code Description"
                         value="{oModel>/ZBUDG_DISC}"
+                        editable="{oPropertyModel>/editClicked}"
                     />
                     <Label text="Active / Inactive" />
 
-                    <Select />
-                    <Label text="Budget Code" />
+                    <Select
+                        selectedKey="{oModel>/ZBUDG_STATUS}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/editClicked}"
+                    >
+                        <core:Item
+                            key="true"
+                            text="Active"
+                        />
+                        <core:Item
+                            key="false"
+                            text="Inactive"
+                        />
+                    </Select>
+                    <!-- <Label text="Budget Code" />
                     <Input
                         showValueHelp="true"
                         placeholder="Budget Code"
                         showSuggestion="true"
                         value="{oModel>/ZBUDG_CODE}"
-                    />
+                    /> -->
                 </form:content>
             </form:SimpleForm>
         </f:content>
@@ -131,11 +232,19 @@
                     text="Save"
                     press="onSave"
                     type="Accept"
+                    visible="{oPropertyModel>/saveButton}"
+                />
+                <Button
+                    text="Update"
+                    press="onUpdateButtonPress"
+                    type="Emphasized"
+                    visible="{oPropertyModel>/updateButton}"
                 />
                 <Button
                     text="Cancel"
-                    press="onCancel"
+                    press="onCancelButtonPress"
                     type="Reject"
+                    visible="{oPropertyModel>/cancelButton}"
                 />
             </OverflowToolbar>
         </f:footer>

@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="idSDhodF4"
+        title="HOD"
+        noDataText="No Data"
+        search="onValueHelpSearch_hod"
+        liveChange="onValueHelpSearch_hod"
+        confirm="onValueHelpConfirm_hod"
+        contentWidth="250px"
+    >
+        <items>
+            <StandardListItem
+                id="idSLhodValueHelp"
+                title="{Bname}"
+                description="{NameTextc}"
+                wrapping="true"
+            />
+        </items>
+    </SelectDialog>
+</core:FragmentDefinition>

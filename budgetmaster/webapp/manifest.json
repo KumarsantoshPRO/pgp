@@ -17,11 +17,11 @@
     },
     "dataSources": {
       "ZBUDGET_MASTER_SRV": {
-        "uri": "/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/",
+        "uri": "/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/?saml2=disabled",
         "type": "OData",
         "settings": {
           "annotations": [],
-          "localUri": "localService/metadata.xml",
+          "localUri": "localService/ZBUDGET_MASTER_SRV/metadata.xml",
           "odataVersion": "2.0"
         }
       }
@@ -29,6 +29,7 @@
   },
   "sap.ui": {
     "technology": "UI5",
+    "fullWidth": true,
     "icons": {
       "icon": "",
       "favIcon": "",
@@ -64,16 +65,9 @@
         }
       },
       "": {
-        "preload": true,
         "dataSource": "ZBUDGET_MASTER_SRV",
         "settings": {
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": false,
-          "useBatch": false,
-          "metadataUrlParams": {
-            "sap-value-list": "none"
-          }
+          "useBatch": false
         }
       }
     },
