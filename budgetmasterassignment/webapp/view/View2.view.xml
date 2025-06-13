@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="pgp.com.budgetmasterassignment.controller.View1"
+    controllerName="pgp.com.budgetmasterassignment.controller.View2"
     height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
@@ -22,10 +22,27 @@
                     <Title text="Assignments Details" />
                 </f:heading>
                 <f:actions>
-                    <Button
+                    <!-- <Button
                         text="Edit"
                         type="Emphasized"
+                        press="onEditButtonPress"
+                        visible="{oPropertyModel>/editButton}"
+                        icon="sap-icon://edit"
                     />
+                    <Button
+                        text="Copy"
+                        type="Neutral"
+                        press="onCopyButtonPress"
+                        visible="{oPropertyModel>/copyButton}"
+                        icon="sap-icon://copy"
+                    /> -->
+                    <!-- <Button
+                        text="Delete"
+                        press="onDeleteButtonPress"
+                        type="Reject"
+                       
+                        icon="sap-icon://delete"
+                    /> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -37,34 +54,54 @@
             >
                 <form:content>
                     <Label text="Budget Code" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Budget Code"
-                        showSuggestion="true"
-                    />
-                    <Label text="Initiative" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Initiative"
-                        showSuggestion="true"
-                    />
+                    <Select
+                        items="{/ZpsBudBdcodeSet}"
+                        selectedKey="{oModel>/ZBUDG_CODE}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/keyField}"
+                    >
+                        <core:Item
+                            key="{ZbudgCode}"
+                            text="{ZbudgCode}"
+                        />
+                    </Select>
+                    <!-- <Label text="Initiative" />
+                    <Select
+                        items="{/ZpsBudInitSet}"
+                        selectedKey="{oModel>/ZINITI}"
+                        forceSelection="false"
+                    >
+                        <core:Item
+                            key="{DropdownValue}"
+                            text="{DropdownValue}"
+                        />
+                    </Select> -->
                     <Label text="Budget code Description" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Budget code Description"
-                        showSuggestion="true"
+                    <TextArea
+                        value="{oModel>/ZBUDG_DISC}"
+                        editable="{oPropertyModel>/editClicked}"
                     />
                     <Label text="Financial Year" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="Financial Year"
-                        showSuggestion="true"
-                    />
+                    <Select
+                        items="{oModelYear>/}"
+                        selectedKey="{oModel>/ZWBS_YEAR}"
+                        forceSelection="false"
+                        editable="{oPropertyModel>/editClicked}"
+                    >
+                        <core:Item
+                            key="{oModelYear>year}"
+                            text="{oModelYear>year}"
+                        />
+                    </Select>
                     <Label text="WBS" />
                     <Input
                         showValueHelp="true"
                         placeholder="WBS"
                         showSuggestion="true"
+                        valueHelpRequest="onEBSValueHelp"
+                        value="{oModel>/POSID} "
+                        valueHelpOnly="true"
+                        editable="{oPropertyModel>/editClicked}"
                     />
                 </form:content>
             </form:SimpleForm>
@@ -78,11 +115,19 @@
                     text="Save"
                     press="onSave"
                     type="Accept"
+                    visible="{oPropertyModel>/saveButton}"
+                />
+                <Button
+                    text="Update"
+                    press="onUpdateButtonPress"
+                    type="Emphasized"
+                    visible="{oPropertyModel>/updateButton}"
                 />
                 <Button
                     text="Cancel"
-                    press="onCancel"
+                    press="onCancelButtonPress"
                     type="Reject"
+                    visible="{oPropertyModel>/cancelButton}"
                 />
             </OverflowToolbar>
         </f:footer>

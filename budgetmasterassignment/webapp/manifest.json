@@ -14,10 +14,22 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.15.6",
       "toolsId": "555e042f-ab2a-4b0c-b7f5-62137609426c"
+    },
+    "dataSources": {
+      "ZBUDGET_MASTER_SRV": {
+        "uri": "/sap/opu/odata/sap/ZBUDGET_MASTER_SRV/?saml2=disabled",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZBUDGET_MASTER_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
     "technology": "UI5",
+    "fullWidth": true,
     "icons": {
       "icon": "",
       "favIcon": "",
@@ -50,6 +62,12 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "pgp.com.budgetmasterassignment.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "ZBUDGET_MASTER_SRV",
+        "settings": {
+          "useBatch": false
         }
       }
     },

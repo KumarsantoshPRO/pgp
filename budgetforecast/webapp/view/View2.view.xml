@@ -22,12 +22,7 @@
                 <f:heading>
                     <Title text="Budget Forecast" />
                 </f:heading>
-                <f:actions>
-                    <Button
-                        text="Edit"
-                        type="Emphasized"
-                    />
-                </f:actions>
+                <f:actions />
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
@@ -39,34 +34,52 @@
                     >
                         <form:content>
                             <Label text="Budget Code" />
-                            <Input
-                                showValueHelp="true"
-                                placeholder="Budget Code"
-                                showSuggestion="true"
-                            />
+                            <Select
+                                items="{/ZpsBudBdcodeSet}"
+                                selectedKey="{oModel>/ZBUDG_CODE}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{ZbudgCode}"
+                                    text="{ZbudgCode}"
+                                />
+                            </Select>
+
                             <Label text="Financial Year" />
-                            <Input
-                                showValueHelp="true"
-                                placeholder="Financial Year"
-                                showSuggestion="true"
-                            />
+                            <Select
+                                items="{oModelYear>/}"
+                                selectedKey="{oModel>/ZWBS_YEAR}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{oModelYear>year}"
+                                    text="{oModelYear>year}"
+                                />
+                            </Select>
                             <Label text="WBS" />
                             <Input
                                 showValueHelp="true"
                                 placeholder="WBS"
                                 showSuggestion="true"
+                                valueHelpRequest="onEBSValueHelp"
+                                value="{oModel>/POSID} "
+                                valueHelpOnly="true"
+                                editable="{oPropertyModel>/keyField}"
                             />
+
                             <Label text="Released Budget" />
                             <Input
-                                showValueHelp="true"
                                 placeholder="Released Budget"
-                                showSuggestion="true"
+                                value="{oModel>/ZREL_BEDG}"
+                                editable="{oPropertyModel>/editClicked}"
                             />
                             <Label text="Utilized Budget" />
                             <Input
-                                showValueHelp="true"
                                 placeholder="Utilized Budget"
-                                showSuggestion="true"
+                                value="{oModel>/ZACTU_EXP}"
+                                editable="{oPropertyModel>/editClicked}"
                             />
                         </form:content>
                     </form:SimpleForm>
@@ -79,13 +92,13 @@
                     <Column hAlign="Center">
                         <Text text="Apr" />
                     </Column>
-                  <Column hAlign="Center">
+                    <Column hAlign="Center">
                         <Text text="May" />
                     </Column>
-                   <Column hAlign="Center">
+                    <Column hAlign="Center">
                         <Text text="Jun" />
                     </Column>
-                   <Column hAlign="Center">
+                    <Column hAlign="Center">
                         <Text text="Jul" />
                     </Column>
                     <Column hAlign="Center">
@@ -116,18 +129,66 @@
                 <items>
                     <ColumnListItem vAlign="Middle">
                         <cells>
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
-                            <Input />
+                            <Input
+                                value="{oModel>/ZAPR}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZMAY}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZJUNE}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZJULY}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZAUG}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZSEPT}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZOCT}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZNOV}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZDEC}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZJAN}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZFEB}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
+                            <Input
+                                value="{oModel>/ZMARCH}"
+                                editable="{oPropertyModel>/editClicked}"
+                                type="Number"
+                            />
                         </cells>
                     </ColumnListItem>
                 </items>
@@ -142,11 +203,19 @@
                     text="Save"
                     press="onSave"
                     type="Accept"
+                    visible="{oPropertyModel>/saveButton}"
+                />
+                <Button
+                    text="Update"
+                    press="onUpdateButtonPress"
+                    type="Emphasized"
+                    visible="{oPropertyModel>/updateButton}"
                 />
                 <Button
                     text="Cancel"
-                    press="onCancel"
+                    press="onCancelButtonPress"
                     type="Reject"
+                    visible="{oPropertyModel>/cancelButton}"
                 />
             </OverflowToolbar>
         </f:footer>

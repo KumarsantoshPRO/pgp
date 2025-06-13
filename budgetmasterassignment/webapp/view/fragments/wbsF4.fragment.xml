@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="idSDwbsF4"
+        title="wbs"
+        noDataText="No Data"
+        search="onValueHelpSearch_wbs"
+        liveChange="onValueHelpSearch_wbs"
+        confirm="onValueHelpConfirm_wbs"
+        contentWidth="250px"
+    >
+        <items>
+            <StandardListItem
+                id="idSLwbsValueHelp"
+                title="{Posid}"
+                description="{Post1}"
+                wrapping="true"
+            />
+        </items>
+    </SelectDialog>
+</core:FragmentDefinition>
