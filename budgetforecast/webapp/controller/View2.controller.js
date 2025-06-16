@@ -24,7 +24,6 @@ sap.ui.define([
 			this.createLocalModel();
 			this.definations();
 			var nav = oEvent.getParameter("arguments").nav
-			debugger;
 			if (nav === 'null' || nav === undefined) {
 				this.screenBehave('null');
 			} else {

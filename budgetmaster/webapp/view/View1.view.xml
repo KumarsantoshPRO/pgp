@@ -19,7 +19,7 @@
             >
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem
-                        name="Project"
+                        name="PRJ_TYPE"
                         label="Project"
                         groupName="Group1"
                         visibleInFilterBar="true"
@@ -41,7 +41,27 @@
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
-                        name="Technology"
+                        name="ZINITI"
+                        label="Initiative"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                items="{/ZpsBudInitSet}"
+                                selectedKey="{oModelFilter>/ZINITI}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{DropdownValue}"
+                                    text="{DropdownValue}"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="ZTLIST"
                         label="Technology"
                         groupName="Group1"
                         visibleInFilterBar="true"
@@ -61,7 +81,7 @@
                     </fb:FilterGroupItem>
 
                     <fb:FilterGroupItem
-                        name="Category"
+                        name="ZCATEG"
                         label="Category"
                         groupName="Group1"
                         visibleInFilterBar="true"
@@ -79,15 +99,153 @@
                             </Select>
                         </fb:control>
                     </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem
+                        name="ZEXPTP"
+                        label="Expense Type"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                items="{/ZpsBudExpeSet}"
+                                selectedKey="{oModelFilter>/ZEXPTP}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{DropdownValue}"
+                                    text="{DropdownValue}"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem
+                        name="ZCAPEX_OPEX"
+                        label="Spend Type"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                items="{/ZpsBudSptypeSet}"
+                                selectedKey="{oModelFilter>/ZCAPEX_OPEX}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{DropdownValue}"
+                                    text="{DropdownValue}"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="WERKS"
+                        label="Business Unit"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                items="{/ZpsBudPlantSet}"
+                                selectedKey="{oModelFilter>/WERKS}"
+                                forceSelection="false"
+                                editable="{oPropertyModel>/keyField}"
+                            >
+                                <core:Item
+                                    key="{Werks}"
+                                    text="{Name1}"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="ZWBS_OWNER"
+                        label="Responsible"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input
+                                showValueHelp="true"
+                                placeholder="Responsible"
+                                showSuggestion="true"
+                                valueHelpRequest="onresValueHelp"
+                                value="{oModelTempValue>/ResName}{oModelFilter>/ZWBS_OWNER}"
+                                valueHelpOnly="true"
+                            />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem
+                        name="ZPRJ_HOD"
+                        label="HOD"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input
+                                showValueHelp="true"
+                                placeholder="HOD"
+                                showSuggestion="true"
+                                valueHelpRequest="onHODValueHelp"
+                                value="{oModelTempValue>/HODName}{oModelFilter>/ZPRJ_HOD}"
+                                valueHelpOnly="true"
+                            />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="ZBUDG_STATUS"
+                        label="Active / Inactive"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                selectedKey="{oModelFilter>/ZBUDG_STATUS}"
+                                forceSelection="false"
+                            >
+                                <core:Item
+                                    key="true"
+                                    text="Active"
+                                />
+                                <core:Item
+                                    key="false"
+                                    text="Inactive"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="budgetCode"
+                        label="Budget Code"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Select
+                                items="{/ZpsBudBdcodeSet}"
+                                selectedKey="{oModelFilter>/budgetCode}"
+                                forceSelection="false"
+                            >
+                                <core:Item
+                                    key="{ZbudgCode}"
+                                    text="{ZbudgCode}"
+                                />
+                            </Select>
+                        </fb:control>
+                    </fb:FilterGroupItem>
                 </fb:filterGroupItems>
             </fb:FilterBar>
             <Table:Table
                 id="table"
-                selectionMode="Single"
                 selectionBehavior="RowOnly"
+                selectionMode="Single"
                 rows="{ModelForTable>/}"
                 ariaLabelledBy="title"
-                rowSelectionChange="onClickofItem"
+                visibleRowCount='20'
             >
                 <Table:extension>
                     <OverflowToolbar
@@ -101,7 +259,24 @@
                             />
 
                             <ToolbarSpacer />
-
+                            <Button
+                                text="Edit"
+                                type="Emphasized"
+                                press="onEditButtonPress"
+                                icon="sap-icon://edit"
+                            />
+                            <Button
+                                text="Copy"
+                                type="Neutral"
+                                press="onCopyButtonPress"
+                                icon="sap-icon://copy"
+                            />
+                            <Button
+                                text="Delete"
+                                press="onDeleteButtonPress"
+                                type="Reject"
+                                icon="sap-icon://delete"
+                            />
                             <Button
                                 text="Add New"
                                 icon="sap-icon://add"

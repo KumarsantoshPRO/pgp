@@ -41,10 +41,27 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(tempValue), "oModelTempValue");
 		},
 		_onRouteMatched: function (oEvent) {
+			this.createLocalModel();
+			this.definations();
 			var nav = oEvent.getParameter("arguments").nav
-			this.nav = nav;
-			this.screenBehave(nav);
+			if (nav === 'null' || nav === undefined) {
+				this.screenBehave('null');
+			} else {
+				this.nav = nav.split("$")[1];
+				this.action = nav.split("$")[0];
 
+
+				this.screenBehave(this.nav);
+				if (this.action === "edit") {
+					this.onEditButtonPress();
+				}
+				if (this.action === "copy") {
+					this.onCopyButtonPress();
+				}
+				if (this.action === "delete") {
+					this.onDeleteButtonPress();
+				}
+			}
 		},
 		screenBehave: function (nav) {
 			if (nav === 'null') {

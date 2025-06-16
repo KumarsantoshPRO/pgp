@@ -17,7 +17,7 @@
                     <Title text="Project Details" />
                 </f:heading>
                 <f:actions>
-                    <Button
+                    <!-- <Button
                         text="Edit"
                         type="Emphasized"
                         press="onEditButtonPress"
@@ -37,7 +37,7 @@
                         type="Reject"
                         visible="{oPropertyModel>/deleteButton}"
                         icon="sap-icon://delete"
-                    />
+                    /> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
