@@ -409,7 +409,7 @@
                             <Text text="{ModelForTable>ZREMARKS}" />
                         </Table:template>
                     </Table:Column>
-                    <Table:Column>
+                    <Table:Column sortProperty="ZBUDG_STATUS">
                         <Label
                             text="Active / Inactive"
                             wrapping="true"
@@ -420,7 +420,7 @@
                             />
                         </Table:template>
                     </Table:Column>
-                    <Table:Column>
+                    <Table:Column sortProperty="ZBUDG_DISC">
                         <Label
                             text="Budet Code Description"
                             wrapping="true"
@@ -429,7 +429,7 @@
                             <Text text="{ModelForTable>ZBUDG_DISC}" />
                         </Table:template>
                     </Table:Column>
-                    <Table:Column>
+                    <Table:Column sortProperty="ZBUDG_CODE">
                         <Label
                             text="Budet Code"
                             wrapping="true"
