@@ -245,7 +245,7 @@
                 selectionMode="Single"
                 rows="{ModelForTable>/}"
                 ariaLabelledBy="title"
-                visibleRowCount='20'
+                visibleRowCount='15'
             >
                 <Table:extension>
                     <OverflowToolbar
