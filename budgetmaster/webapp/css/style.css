@@ -1,1 +1,36 @@
 /* Enter your custom styles here */
+
+/* Targeting the icon within a button */
+.myCustomIconStyle .sapMBtnIcon {
+    color: purple !important; /* Use !important if necessary to override default styles */
+ 
+}
+
+/* Targeting a general icon control */
+.myCustomIconClass .sapUiIcon {
+    color: orange;
+}
+
+/* Target the input element within the filter bar item */
+.myWideInput {
+    /* Increase the width */
+    width: 25rem !important; /* Use !important with caution, but often necessary to override Fiori default styles */
+    max-width: 25rem !important; /* Set max-width as well to prevent shrinking */
+}
+
+#__item27 {
+   width: 28rem 
+}
+
+/* You might need to target the parent container as well */
+/* This is more fragile as it relies on internal DOM structure */
+.sapUiCompFilterBar .myWideInput.sapMInputBase {
+    width: 25rem !important;
+    max-width: 25rem !important;
+}
+
+/* If the input is wrapped in a FormElement, you might need to target that */
+.sapUiCompFilterBar .sapUiFormResGridCont .sapUiFormElement > .sapUiFormElementRow > .sapUiFormCell .myWideInput {
+    width: 25rem !important;
+    max-width: 25rem !important;
+}

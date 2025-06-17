@@ -31,7 +31,8 @@ sap.ui.define([
 				editButton: false,
 				copyButton: false,
 				deleteButton: false,
-				cancelButton: false
+				cancelButton: false,
+				budCodeVisible: false
 			};
 			this.getView().setModel(new JSONModel(properties), "oPropertyModel");
 			var tempValue = {
@@ -78,6 +79,7 @@ sap.ui.define([
 				this.getView().getModel("oPropertyModel").setProperty("/copyButton", false);
 				this.getView().getModel("oPropertyModel").setProperty("/deleteButton", false);
 				this.getView().getModel("oPropertyModel").setProperty("/cancelButton", true);
+				this.getView().getModel("oPropertyModel").setProperty("/budCodeVisible", false);
 				this.createLocalModel();
 			} else {
 
@@ -90,6 +92,7 @@ sap.ui.define([
 				this.getView().getModel("oPropertyModel").setProperty("/copyButton", true);
 				this.getView().getModel("oPropertyModel").setProperty("/deleteButton", true);
 				this.getView().getModel("oPropertyModel").setProperty("/cancelButton", false);
+				this.getView().getModel("oPropertyModel").setProperty("/budCodeVisible", true);
 				this.readCall(nav);
 			}
 		},
@@ -178,6 +181,7 @@ sap.ui.define([
 		},
 		onEditButtonPress: function () {
 			this.getView().getModel("oPropertyModel").setProperty("/editClicked", true);
+			this.getView().getModel("oPropertyModel").setProperty("/budCodeVisible", true);
 			this.getView().getModel("oPropertyModel").setProperty("/keyField", false);
 			this.getView().getModel("oPropertyModel").setProperty("/saveButton", false);
 			this.getView().getModel("oPropertyModel").setProperty("/updateButton", true);
@@ -253,6 +257,7 @@ sap.ui.define([
 		},
 		onCopyButtonPress: function () {
 			this.getView().getModel("oPropertyModel").setProperty("/editClicked", true);
+			this.getView().getModel("oPropertyModel").setProperty("/budCodeVisible", false);
 			this.getView().getModel("oPropertyModel").setProperty("/keyField", true);
 			this.getView().getModel("oPropertyModel").setProperty("/saveButton", true);
 			this.getView().getModel("oPropertyModel").setProperty("/updateButton", false);

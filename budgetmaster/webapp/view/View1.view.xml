@@ -25,10 +25,7 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
-                                selectedKey="{oModelFilter>/PRJ_TYPE}"
-                                forceSelection="false"
-                            >
+                            <MultiComboBox id="idProjectFilter">
                                 <core:Item
                                     key="Project"
                                     text="Project"
@@ -37,7 +34,7 @@
                                     key="BAU"
                                     text="BAU"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
@@ -47,17 +44,15 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idInitiativeFilter"
                                 items="{/ZpsBudInitSet}"
-                                selectedKey="{oModelFilter>/ZINITI}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/keyField}"
                             >
                                 <core:Item
                                     key="{DropdownValue}"
                                     text="{DropdownValue}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
@@ -67,16 +62,15 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idTechnologyFilter"
                                 items="{/ZpsBudTechSet}"
-                                selectedKey="{oModelFilter>/ZTLIST}"
-                                forceSelection="false"
                             >
                                 <core:Item
                                     key="{DropdownValue}"
                                     text="{DropdownValue}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -87,16 +81,15 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idCategoryFilter"
                                 items="{/ZpsBudCateSet}"
-                                selectedKey="{oModelFilter>/ZCATEG}"
-                                forceSelection="false"
                             >
                                 <core:Item
                                     key="{DropdownValue}"
                                     text="{DropdownValue}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -107,17 +100,15 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idExpenseFilter"
                                 items="{/ZpsBudExpeSet}"
-                                selectedKey="{oModelFilter>/ZEXPTP}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/keyField}"
                             >
                                 <core:Item
                                     key="{DropdownValue}"
                                     text="{DropdownValue}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -128,17 +119,15 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idSpendFilter"
                                 items="{/ZpsBudSptypeSet}"
-                                selectedKey="{oModelFilter>/ZCAPEX_OPEX}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/keyField}"
                             >
                                 <core:Item
                                     key="{DropdownValue}"
                                     text="{DropdownValue}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
@@ -148,17 +137,74 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idBusinessFilter"
                                 items="{/ZpsBudPlantSet}"
-                                selectedKey="{oModelFilter>/WERKS}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/keyField}"
                             >
                                 <core:Item
                                     key="{Werks}"
                                     text="{Name1}"
                                 />
-                            </Select>
+                            </MultiComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem
+                        name="ZBUDG_STATUS"
+                        label="Active / Inactive"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <MultiComboBox
+                                id="idStatusFilter"
+                                selectedKey="{oModelFilter>/ZBUDG_STATUS}"
+                            >
+                                <core:Item
+                                    key="true"
+                                    text="Active"
+                                />
+                                <core:Item
+                                    key="false"
+                                    text="Inactive"
+                                />
+                            </MultiComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="budgetCode"
+                        label="Budget Code"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <MultiComboBox
+                                id="idBudCodeFilter"
+                                items="{/ZpsBudBdcodeSet}"
+                            >
+                                <core:Item
+                                    key="{ZbudgCode}"
+                                    text="{ZbudgCode}"
+                                />
+                            </MultiComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        name="budgetCodeDescr"
+                        label="Budget Code Description"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <MultiComboBox
+                                id="idBudCodeDescrFilter"
+                                items="{oModelBCodeDescFilter>/}"
+                            >
+                                <core:Item
+                                    key="{oModelBCodeDescFilter>BCodeDesc}"
+                                    text="{oModelBCodeDescFilter>BCodeDesc}"
+                                />
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
@@ -168,14 +214,40 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input
+                            <!-- <Input
                                 showValueHelp="true"
                                 placeholder="Responsible"
                                 showSuggestion="true"
                                 valueHelpRequest="onresValueHelp"
                                 value="{oModelTempValue>/ResName}{oModelFilter>/ZWBS_OWNER}"
                                 valueHelpOnly="true"
-                            />
+                            /> -->
+
+                            <MultiInput
+                                id="idResponsible"
+                                showValueHelp="false"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onResponsibleSelected"
+                                suggestionRows="{
+				path: '/ZpsBudPerHodSet'
+			}"
+                            >
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Employee Number" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Name" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{Bname}" />
+                                        <Label text="{NameTextc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -186,63 +258,47 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input
+                            <!-- <Input
                                 showValueHelp="true"
                                 placeholder="HOD"
                                 showSuggestion="true"
                                 valueHelpRequest="onHODValueHelp"
                                 value="{oModelTempValue>/HODName}{oModelFilter>/ZPRJ_HOD}"
                                 valueHelpOnly="true"
-                            />
-                        </fb:control>
-                    </fb:FilterGroupItem>
-                    <fb:FilterGroupItem
-                        name="ZBUDG_STATUS"
-                        label="Active / Inactive"
-                        groupName="Group1"
-                        visibleInFilterBar="true"
-                    >
-                        <fb:control>
-                            <Select
-                                selectedKey="{oModelFilter>/ZBUDG_STATUS}"
-                                forceSelection="false"
+                            /> -->
+
+                            <MultiInput
+                                id="idHod"
+                                showValueHelp="false"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onHODSelected"
+                                suggestionRows="{
+				path: '/ZpsBudPerHodSet'
+			}"
                             >
-                                <core:Item
-                                    key="true"
-                                    text="Active"
-                                />
-                                <core:Item
-                                    key="false"
-                                    text="Inactive"
-                                />
-                            </Select>
-                        </fb:control>
-                    </fb:FilterGroupItem>
-                    <fb:FilterGroupItem
-                        name="budgetCode"
-                        label="Budget Code"
-                        groupName="Group1"
-                        visibleInFilterBar="true"
-                    >
-                        <fb:control>
-                            <Select
-                                items="{/ZpsBudBdcodeSet}"
-                                selectedKey="{oModelFilter>/budgetCode}"
-                                forceSelection="false"
-                            >
-                                <core:Item
-                                    key="{ZbudgCode}"
-                                    text="{ZbudgCode}"
-                                />
-                            </Select>
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Employee Number" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Name" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{Bname}" />
+                                        <Label text="{NameTextc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
             </fb:FilterBar>
             <Table:Table
                 id="table"
-                selectionBehavior="RowOnly"
-                selectionMode="Single"
+                selectionMode="MultiToggle"
                 rows="{ModelForTable>/}"
                 ariaLabelledBy="title"
                 visibleRowCount='15'
@@ -261,27 +317,37 @@
                             <ToolbarSpacer />
                             <Button
                                 text="Edit"
-                                type="Emphasized"
+                                tooltip="Edit"
+                                type="Neutral"
                                 press="onEditButtonPress"
                                 icon="sap-icon://edit"
                             />
                             <Button
                                 text="Copy"
-                                type="Neutral"
+                                tooltip="Copy"
+                                type="Emphasized"
                                 press="onCopyButtonPress"
                                 icon="sap-icon://copy"
                             />
                             <Button
                                 text="Delete"
+                                tooltip="Delete"
                                 press="onDeleteButtonPress"
                                 type="Reject"
                                 icon="sap-icon://delete"
                             />
                             <Button
                                 text="Add New"
+                                tooltip="Add New"
                                 icon="sap-icon://add"
                                 type="Accept"
                                 press="onAddNew"
+                            />
+                            <Button
+                                tooltip="Refresh"
+                                icon="sap-icon://refresh"
+                                class="myCustomIconStyle"
+                                press="onResetButtonPress"
                             />
                         </content>
                     </OverflowToolbar>
@@ -431,7 +497,7 @@
                     </Table:Column>
                     <Table:Column sortProperty="ZBUDG_CODE">
                         <Label
-                            text="Budet Code"
+                            text="Budget Code"
                             wrapping="true"
                         />
                         <Table:template>

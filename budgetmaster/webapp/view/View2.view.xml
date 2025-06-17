@@ -14,7 +14,9 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Project Details" />
+                    <Title
+                        text="{=${oModel>/ZBUDG_CODE}?${oModel>/ZBUDG_CODE}:'Project Details'}"
+                    />
                 </f:heading>
                 <f:actions>
                     <!-- <Button
@@ -213,12 +215,20 @@
                             text="Inactive"
                         />
                     </Select>
-                    <!-- <Label text="Budget Code" />
+                    <Label
+                        text="Budget Code"
+                        visible="{oPropertyModel>/budCodeVisible}"
+                    />
                     <Input
-                        showValueHelp="true"
-                        placeholder="Budget Code"
-                        showSuggestion="true"
                         value="{oModel>/ZBUDG_CODE}"
+                        editable="false"
+                        visible="{oPropertyModel>/budCodeVisible}"
+                    />
+                    <!-- <Label text="Budget Code Description" visible="{oPropertyModel>/budCodeVisible}"/>
+                    <Input
+                        value="{oModel>/ZBUDG_DISC}"
+                        editable="false"
+                        visible="{oPropertyModel>/budCodeVisible}"
                     /> -->
                 </form:content>
             </form:SimpleForm>
