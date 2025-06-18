@@ -225,6 +225,7 @@
 
                             <MultiInput
                                 id="idResponsible"
+                                placeholder="Enter Responsible ID/Name"
                                 showValueHelp="false"
                                 showSuggestion="true"
                                 valueLiveUpdate="true"
@@ -269,6 +270,7 @@
 
                             <MultiInput
                                 id="idHod"
+                                placeholder="Enter HOD ID/Name"
                                 showValueHelp="false"
                                 showSuggestion="true"
                                 valueLiveUpdate="true"
@@ -301,6 +303,7 @@
                 selectionMode="MultiToggle"
                 rows="{ModelForTable>/}"
                 ariaLabelledBy="title"
+                enableSelectAll="false"
                 visibleRowCount='15'
             >
                 <Table:extension>

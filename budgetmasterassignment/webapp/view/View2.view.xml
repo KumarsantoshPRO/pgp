@@ -59,6 +59,7 @@
                         selectedKey="{oModel>/ZBUDG_CODE}"
                         forceSelection="false"
                         editable="{oPropertyModel>/keyField}"
+                        change="onBudCodeSetSelectChange"
                     >
                         <core:Item
                             key="{ZbudgCode}"
@@ -79,7 +80,7 @@
                     <Label text="Budget code Description" />
                     <TextArea
                         value="{oModel>/ZBUDG_DISC}"
-                        editable="{oPropertyModel>/editClicked}"
+                        editable="false"
                     />
                     <Label text="Financial Year" />
                     <Select

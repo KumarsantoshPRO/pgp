@@ -53,10 +53,13 @@ sap.ui.define([
 
 
 				this.screenBehave(this.nav);
+				
 				if (this.action === "edit") {
 					this.onEditButtonPress();
 				}
 				if (this.action === "copy") {
+					
+
 					this.onCopyButtonPress();
 				}
 				if (this.action === "delete") {

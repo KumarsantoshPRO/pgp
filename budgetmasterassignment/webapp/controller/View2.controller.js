@@ -1,11 +1,13 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
 ], function (
 	Controller,
 	JSONModel,
-	MessageBox
+	MessageBox,
+	MessageToast
 ) {
 	"use strict";
 
@@ -106,6 +108,20 @@ sap.ui.define([
 
 			};
 			this.getView().setModel(new JSONModel(oDataForModel), "oModel");
+		},
+		onBudCodeSetSelectChange: function (oEvent) {
+			var oSelectedItem = oEvent.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var oBindingContext = oSelectedItem.getBindingContext();
+				var oSelectedBudgetCode = oBindingContext.getObject();
+				if (oSelectedBudgetCode.ZbudgDisc) {
+					this.getView().getModel("oModel").setProperty("/ZBUDG_DISC", oSelectedBudgetCode.ZbudgDisc);
+				} else {
+					this.getView().getModel("oModel").setProperty("/ZBUDG_DISC", oSelectedBudgetCode.ZbudgDisc);
+					MessageToast.show("Budget Code Description not present");
+				}
+
+			}
 		},
 		readCall: function (nav) {
 			var oModel = this.getOwnerComponent().getModel();

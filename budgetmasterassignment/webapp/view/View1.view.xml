@@ -25,36 +25,33 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idBudget"
                                 items="{/ZpsBudBdcodeSet}"
-                                selectedKey="{oModelFilter>/budgetCode}"
-                                forceSelection="false"
                             >
                                 <core:Item
                                     key="{ZbudgCode}"
                                     text="{ZbudgCode}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
-                        name=" Year"
+                        name="Year"
                         label="Financial Year"
                         groupName="Group1"
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idYear"
                                 items="{oModelYearFilter>/}"
-                                selectedKey="{oModelFilter>/finYear}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/editClicked}"
                             >
                                 <core:Item
                                     key="{oModelYearFilter>year}"
                                     text="{oModelYearFilter>year}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -65,14 +62,41 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Input
+                            <!-- <Input
                                 showValueHelp="true"
                                 placeholder="WBS"
                                 showSuggestion="true"
                                 valueHelpRequest="onEBSValueHelp"
                                 value="{oModelFilter>/WBS} "
                                 valueHelpOnly="true"
-                            />
+                            /> -->
+
+                            <MultiInput
+                                id="idWBS"
+                                placeholder="Enter WBS"
+                                showValueHelp="false"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onWBSSelected"
+                                suggestionRows="{
+				path: '/ZpsBudWbsSet'
+			}"
+                            >
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Name" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{Posid}" />
+                                        <Label text="{Post1}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
@@ -80,10 +104,10 @@
             <Table:Table
                 id="table"
                 rows="{ModelForTable>/}"
-                selectionBehavior="RowOnly"
-                selectionMode="Single"
+                selectionMode="MultiToggle"
                 ariaLabelledBy="title"
                 enableSelectAll="false"
+                visibleRowCount='15'
             >
                 <!-- rowSelectionChange="onClickofItem" -->
                 <Table:extension>
@@ -121,6 +145,12 @@
                                 icon="sap-icon://add"
                                 type="Accept"
                                 press="onAddNew"
+                            />
+                            <Button
+                                tooltip="Refresh"
+                                icon="sap-icon://refresh"
+                                class="myCustomIconStyle"
+                                press="onResetButtonPress"
                             />
                         </content>
                     </OverflowToolbar>
