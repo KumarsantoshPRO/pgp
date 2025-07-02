@@ -50,21 +50,10 @@ sap.ui.define([
 			} else {
 				this.nav = nav.split("$")[1];
 				this.action = nav.split("$")[0];
-
-
+				debugger;
+				this.readCall(this.nav);
 				this.screenBehave(this.nav);
-				
-				if (this.action === "edit") {
-					this.onEditButtonPress();
-				}
-				if (this.action === "copy") {
-					
 
-					this.onCopyButtonPress();
-				}
-				if (this.action === "delete") {
-					this.onDeleteButtonPress();
-				}
 			}
 		},
 		screenBehave: function (nav) {
@@ -117,6 +106,11 @@ sap.ui.define([
 				"ZREMARKS": ""
 			};
 			this.getView().setModel(new JSONModel(oDataForModel), "oModel");
+
+			var tempValues = {
+				title: "Project Details"
+			};
+			this.getView().setModel(new JSONModel(tempValues), "oModelTempValue");
 		},
 		readCall: function (nav) {
 			var oModel = this.getOwnerComponent().getModel();
@@ -137,6 +131,23 @@ sap.ui.define([
 								if (element.Bname === data.ZWBS_OWNER) {
 									this.getView().getModel("oModelTempValue").setProperty("/ResName", element.NameTextc + "-");
 								}
+
+							}
+
+
+							if (this.action === "edit") {
+								this.getView().getModel("oModelTempValue").setProperty("/title", data.ZBUDG_CODE);
+								this.onEditButtonPress();
+
+							}
+							if (this.action === "copy") {
+								this.getView().getModel("oModelTempValue").setProperty("/title", "Project Details");
+								this.onCopyButtonPress();
+
+							}
+							if (this.action === "delete") {
+								this.getView().getModel("oModelTempValue").setProperty("/title", data.ZBUDG_CODE);
+								this.onDeleteButtonPress();
 
 							}
 							this.getView().setBusy(false);

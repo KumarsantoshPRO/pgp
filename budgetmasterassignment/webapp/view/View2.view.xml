@@ -19,7 +19,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Assignments Details" />
+                    <Title text="{oModelTempValue>/title}" />
                 </f:heading>
                 <f:actions>
                     <!-- <Button
@@ -54,7 +54,38 @@
             >
                 <form:content>
                     <Label text="Budget Code" />
-                    <Select
+                    <Input
+                        id="idBudgetCodeV2"
+                        value="{oModel>/ZBUDG_CODE}"
+                        placeholder="Enter Budget Code/Description"
+                        showValueHelp="true"
+                        valueHelpRequest="onBudgetCodeValueHelpRequest"
+                        showSuggestion="true"
+                        valueLiveUpdate="true"
+                        suggestionItemSelected="onBudgetCodeSelected"
+                        suggestionRows="{
+				path: '/ZpsBudBdcodeSet'
+			}"
+                    >
+                        <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                        <suggestionColumns>
+                            <Column>
+                                <Label text="Budget Code" />
+                            </Column>
+                            <Column>
+                                <Label text="Description" />
+                            </Column>
+                        </suggestionColumns>
+                        <suggestionRows>
+                            <ColumnListItem>
+                                <Label text="{ZbudgCode}" />
+                                <Label text="{ZbudgDisc}" />
+                            </ColumnListItem>
+                        </suggestionRows>
+                    </Input>
+
+                    <!-- <Select
                         items="{/ZpsBudBdcodeSet}"
                         selectedKey="{oModel>/ZBUDG_CODE}"
                         forceSelection="false"
@@ -65,7 +96,7 @@
                             key="{ZbudgCode}"
                             text="{ZbudgCode}"
                         />
-                    </Select>
+                    </Select>  -->
                     <!-- <Label text="Initiative" />
                     <Select
                         items="{/ZpsBudInitSet}"
@@ -94,16 +125,72 @@
                             text="{oModelYear>year}"
                         />
                     </Select>
-                    <Label text="WBS" />
-                    <Input
-                        showValueHelp="true"
-                        placeholder="WBS"
-                        showSuggestion="true"
-                        valueHelpRequest="onEBSValueHelp"
-                        value="{oModel>/POSID} "
-                        valueHelpOnly="true"
-                        editable="{oPropertyModel>/editClicked}"
+                    <Label
+                        text="WBS"
+                        visible="{oPropertyModel>/multiInput}"
                     />
+
+                    <MultiInput
+                        id="idWBSV2"
+                        placeholder="Enter WBS"
+                        showValueHelp="true"
+                        showSuggestion="true"
+                        valueLiveUpdate="true"
+                        valueHelpRequest="onWBSValueHelpRequest"
+                        suggestionItemSelected="onWBSSelected"
+                        suggestionRows="{
+				path: '/ZpsBudWbsSet'
+			}"
+                        visible="{oPropertyModel>/multiInput}"
+                    >
+                        <suggestionColumns>
+                            <Column>
+                                <Label text="Code" />
+                            </Column>
+                            <Column>
+                                <Label text="Name" />
+                            </Column>
+                        </suggestionColumns>
+                        <suggestionRows>
+                            <ColumnListItem>
+                                <Label text="{Posid}" />
+                                <Label text="{Post1}" />
+                            </ColumnListItem>
+                        </suggestionRows>
+                    </MultiInput>
+                    <Label
+                        text="WBS"
+                        visible="{oPropertyModel>/singleInput}"
+                    />
+                    <Input
+                        id="idWBSV2Single"
+                        value="{oModel>/POSID}"
+                        placeholder="Enter WBS"
+                        showValueHelp="true"
+                        showSuggestion="true"
+                        valueLiveUpdate="true"
+                        valueHelpRequest="onWBSValueHelpRequestSingle"
+                        suggestionItemSelected="onWBSSelectedSingle"
+                        suggestionRows="{
+				path: '/ZpsBudWbsSet'
+			}"
+                        visible="{oPropertyModel>/singleInput}"
+                    >
+                        <suggestionColumns>
+                            <Column>
+                                <Label text="Code" />
+                            </Column>
+                            <Column>
+                                <Label text="Name" />
+                            </Column>
+                        </suggestionColumns>
+                        <suggestionRows>
+                            <ColumnListItem>
+                                <Label text="{Posid}" />
+                                <Label text="{Post1}" />
+                            </ColumnListItem>
+                        </suggestionRows>
+                    </Input>
                 </form:content>
             </form:SimpleForm>
         </f:content>

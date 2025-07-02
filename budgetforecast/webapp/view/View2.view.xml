@@ -34,17 +34,48 @@
                     >
                         <form:content>
                             <Label text="Budget Code" />
-                            <Select
+                            <!-- <Select
                                 items="{/ZpsBudBdcodeSet}"
                                 selectedKey="{oModel>/ZBUDG_CODE}"
                                 forceSelection="false"
                                 editable="{oPropertyModel>/keyField}"
+                                change="onBudCodeSelectChange"
                             >
                                 <core:Item
                                     key="{ZbudgCode}"
                                     text="{ZbudgCode}"
                                 />
-                            </Select>
+                            </Select> -->
+                            <Input
+                                id="idBudgetCodeV2"
+                                value="{oModel>/ZBUDG_CODE}"
+                                placeholder="Budget Code"
+                                showValueHelp="true"
+                                valueHelpRequest="onBudgetCodeValueHelpRequest"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onBudgetCodeSelected"
+                                suggestionRows="{
+				path: '/ZpsBudBdcodeSet'
+			}"
+                            >
+                                <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Budget Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Description" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{ZbudgCode}" />
+                                        <Label text="{ZbudgDisc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </Input>
 
                             <Label text="Financial Year" />
                             <Select
@@ -60,14 +91,36 @@
                             </Select>
                             <Label text="WBS" />
                             <Input
+                                id="idWBS"
                                 showValueHelp="true"
                                 placeholder="WBS"
-                                showSuggestion="true"
                                 valueHelpRequest="onEBSValueHelp"
-                                value="{oModel>/POSID} "
-                                valueHelpOnly="true"
+                                value="{oModel>/POSID}"
                                 editable="{oPropertyModel>/keyField}"
-                            />
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onWBSSelected"
+                                suggestionRows="{
+				path: '/ZpsBudWbsSet'
+			}"
+                            >
+                                <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Name" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{Posid}" />
+                                        <Label text="{Post1}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </Input>
 
                             <Label text="Released Budget" />
                             <Input

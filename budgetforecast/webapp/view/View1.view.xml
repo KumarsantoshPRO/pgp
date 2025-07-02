@@ -25,36 +25,64 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <Select
+                            <!-- <MultiComboBox
+                                id="idBudget"
                                 items="{/ZpsBudBdcodeSet}"
-                                selectedKey="{oModelFilter>/budgetCode}"
-                                forceSelection="false"
                             >
                                 <core:Item
                                     key="{ZbudgCode}"
                                     text="{ZbudgCode}"
                                 />
-                            </Select>
+                            </MultiComboBox> -->
+                            <MultiInput
+                                id="idBudgetCode"
+                                placeholder="Enter Budget Code/Description"
+                                showValueHelp="true"
+                                valueHelpRequest="onBudgetCodeValueHelpRequest"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onBudgetCodeSelected"
+                                suggestionRows="{
+				path: '/ZpsBudBdcodeSet'
+			}"
+                            >
+                                <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Budget Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Description" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{ZbudgCode}" />
+                                        <Label text="{ZbudgDisc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
+
                     <fb:FilterGroupItem
-                        name=" Year"
+                        name="Year"
                         label="Financial Year"
                         groupName="Group1"
-                        visibleInFilterBar="true"
+                        visibleInFilterBar="false"
+                        visible="false"
                     >
                         <fb:control>
-                            <Select
+                            <MultiComboBox
+                                id="idYear"
                                 items="{oModelYearFilter>/}"
-                                selectedKey="{oModelFilter>/finYear}"
-                                forceSelection="false"
-                                editable="{oPropertyModel>/editClicked}"
                             >
                                 <core:Item
                                     key="{oModelYearFilter>year}"
                                     text="{oModelYearFilter>year}"
                                 />
-                            </Select>
+                            </MultiComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
 
@@ -62,17 +90,45 @@
                         name="WBS"
                         label="WBS"
                         groupName="Group1"
-                        visibleInFilterBar="true"
+                        visibleInFilterBar="false"
+                        visible="false"
                     >
                         <fb:control>
-                            <Input
+                            <!-- <Input
                                 showValueHelp="true"
                                 placeholder="WBS"
                                 showSuggestion="true"
                                 valueHelpRequest="onEBSValueHelp"
                                 value="{oModelFilter>/WBS} "
                                 valueHelpOnly="true"
-                            />
+                            /> -->
+
+                            <MultiInput
+                                id="idWBS"
+                                placeholder="Enter WBS"
+                                showValueHelp="false"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onWBSSelected"
+                                suggestionRows="{
+				path: '/ZpsBudWbsSet'
+			}"
+                            >
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Name" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{Posid}" />
+                                        <Label text="{Post1}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
@@ -80,10 +136,10 @@
             <Table:Table
                 id="table"
                 rows="{ModelForTable>/}"
-                selectionBehavior="RowOnly"
-                selectionMode="Single"
+                selectionMode="MultiToggle"
                 ariaLabelledBy="title"
                 enableSelectAll="false"
+                visibleRowCount='15'
             >
                 <!-- rowSelectionChange="onClickofItem" -->
                 <Table:extension>
@@ -122,6 +178,12 @@
                                 type="Accept"
                                 press="onAddNew"
                             />
+                            <Button
+                                tooltip="Refresh"
+                                icon="sap-icon://refresh"
+                                class="myCustomIconStyle"
+                                press="onResetButtonPress"
+                            />
                         </content>
                     </OverflowToolbar>
                 </Table:extension>
@@ -136,7 +198,10 @@
                         </Table:template>
                     </Table:Column>
 
-                    <Table:Column sortProperty="ZWBS_YEAR">
+                    <Table:Column
+                        sortProperty="ZWBS_YEAR"
+                        visible="false"
+                    >
                         <Label
                             text="Financial Year"
                             wrapping="true"
@@ -146,13 +211,19 @@
                         </Table:template>
                     </Table:Column>
 
-                    <Table:Column sortProperty="POSID">
-                        <Label
-                            text="WBS"
-                            wrapping="true"
-                        />
+                    <Table:Column
+                        sortProperty="POSID"
+                        width="15rem"
+                        visible="false"
+                    >
+                        <Label text="WBS" />
                         <Table:template>
-                            <Text text="{path:'ModelForTable>POSID'}" />
+                            <!-- <Text text="{path:'ModelForTable>POSID'}" /> -->
+
+                            <ObjectIdentifier
+                                title='{ModelForTable>WBSDescr}'
+                                text='{ModelForTable>POSID}'
+                            />
                         </Table:template>
                     </Table:Column>
                     <Table:Column sortProperty="ZREL_BEDG">

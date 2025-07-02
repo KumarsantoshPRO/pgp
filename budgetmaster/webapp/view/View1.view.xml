@@ -143,7 +143,7 @@
                             >
                                 <core:Item
                                     key="{Werks}"
-                                    text="{Name1}"
+                                    text="{Werks}-{Name1}"
                                 />
                             </MultiComboBox>
                         </fb:control>
@@ -178,7 +178,7 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <MultiComboBox
+                            <!-- <MultiComboBox
                                 id="idBudCodeFilter"
                                 items="{/ZpsBudBdcodeSet}"
                             >
@@ -186,10 +186,40 @@
                                     key="{ZbudgCode}"
                                     text="{ZbudgCode}"
                                 />
-                            </MultiComboBox>
+                            </MultiComboBox> -->
+
+                            <MultiInput
+                                id="idBudgetCode"
+                                placeholder="Enter Budget Code/Description"
+                                showValueHelp="true"
+                                valueHelpRequest="onBudgetCodeValueHelpRequest"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onBudgetCodeSelected"
+                                suggestionRows="{
+				path: '/ZpsBudBdcodeSet'
+			}"
+                            >
+                                <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Budget Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Description" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{ZbudgCode}" />
+                                        <Label text="{ZbudgDisc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem
+                    <!-- <fb:FilterGroupItem
                         name="budgetCodeDescr"
                         label="Budget Code Description"
                         groupName="Group1"
@@ -206,7 +236,7 @@
                                 />
                             </MultiComboBox>
                         </fb:control>
-                    </fb:FilterGroupItem>
+                    </fb:FilterGroupItem> -->
                     <fb:FilterGroupItem
                         name="ZWBS_OWNER"
                         label="Responsible"

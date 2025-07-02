@@ -1,11 +1,15 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ], function (
 	Controller,
 	JSONModel,
-	MessageBox
+	MessageBox,
+	Filter,
+	FilterOperator
 ) {
 	"use strict";
 
@@ -48,10 +52,11 @@ sap.ui.define([
 			// For financial year
 			var years = [];
 			var currentYear = new Date().getFullYear();
-			var lastFinancialYear = (currentYear - 1).toString() + "-" + (currentYear).toString(),
-				currentFinancialYear = (currentYear).toString() + "-" + (currentYear + 1).toString(),
-				nextFinancialYear = (currentYear + 1).toString() + "-" + (currentYear + 2).toString();
-			var years = [{ year: lastFinancialYear }, { year: currentFinancialYear }, { year: nextFinancialYear }];
+			var lastToLatFinancialYear = (currentYear - 2).toString() + "-" + (currentYear - 1).toString(),
+				lastFinancialYear = (currentYear - 1).toString() + "-" + (currentYear).toString(),
+				currentFinancialYear = (currentYear).toString() + "-" + (currentYear + 1).toString();
+			// nextFinancialYear = (currentYear + 1).toString() + "-" + (currentYear + 2).toString();
+			var years = [{ year: lastToLatFinancialYear }, { year: lastFinancialYear }, { year: currentFinancialYear }];
 			this.getView().setModel(new JSONModel(years), "oModelYear");
 			// For screen behavior 
 			var properties = {
@@ -135,6 +140,17 @@ sap.ui.define([
 				}.bind(this)
 			})
 		},
+		onBudCodeSelectChange: function (oEvent) {
+			var oSelectedItem = oEvent.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var oBindingContext = oSelectedItem.getBindingContext();
+				var oSelectedBudCode = oBindingContext.getObject();
+				var oModel = this.getView().getModel("oModel");
+				oModel.setProperty("/ZREL_BEDG", oSelectedBudCode);
+				oModel.setProperty("/ZREL_BEDG", oSelectedBudCode);
+			}
+
+		},
 		onSave: function () {
 			var oModel = this.getOwnerComponent().getModel();
 			var sPath = "/et_budget_forecastSet";
@@ -160,7 +176,6 @@ sap.ui.define([
 						actions: ["Ok"],
 						onClose: function (oAction) {
 							if (oAction === "Ok") {
-								debugger;
 								that.screenBehave('null');
 							}
 						}
@@ -278,7 +293,77 @@ sap.ui.define([
 			});
 		},
 		// F4 calls
+		// Budget Code
+		onBudgetCodeSelected: function (oEvent) {
+			var oBudCodeInput = this.getView().byId("idBudgetCodeV2");
+			var oSelectedRow = oEvent.getParameter("selectedRow");
+			if (oSelectedRow) {
+				var oBindingContext = oSelectedRow.getBindingContext();
+				var oSelectedObject = oBindingContext.getObject();
+				oBudCodeInput.setValue(oSelectedObject.ZbudgCode);
+			}
+		},
+		onBudgetCodeSuggestion: function (oEvent) {
+			var sValue = oEvent.getParameter('suggestValue'); // The current input value
+			var oBinding = oEvent.getSource().getBinding("suggestionRows");
+			if (oBinding) {
+				var aFilters = [];
+
+				if (sValue) {
+					// Create filters for each column you want to search
+					// Use FilterOperator.Contains for "contains" search
+					aFilters.push(new Filter({
+						filters: [
+							new Filter("ZbudgCode", FilterOperator.Contains, sValue),
+							new Filter("ZbudgDisc", FilterOperator.Contains, sValue)
+						],
+						and: false // OR condition: show if any of the above fields contain the value
+					}));
+				}
+
+				// Apply the filters to the suggestion items binding
+				oBinding.filter(aFilters);
+			}
+		},
+		// on Value Help(F4)
+		onBudgetCodeValueHelpRequest: function (oEvent) {
+			if (!this.BudCodeFrag) {
+				this.BudCodeFrag = sap.ui.xmlfragment(
+					"pgp.com.budgetforecast.view.fragments.budCodeF4V2",
+					this
+				);
+				this.getView().addDependent(this.BudCodeFrag);
+			}
+
+			this.BudCodeFrag.open();
+		},
+		// on Value Help - Search/liveChange
+		onValueHelpSearch_BudCodeV2: function (oEvent) {
+			var sValue = oEvent.getParameter("value");
+			var oFilter = new Filter([
+				new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase())
+			], false); // OR condition for search fields
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([oFilter]);
+		},
+		// Confirm
+		onValueHelpConfirm_BudCodeV2: function (oEvent) {
+			var selectedBudCode = oEvent.getParameter("selectedItem").getTitle();
+			var oModel = this.getView().getModel("oModel");
+			oModel.setProperty("/ZBUDG_CODE", selectedBudCode);
+		},
+
+
 		// WBS
+		onWBSSelectedfunction(oEvent) {
+			var oBudCodeInput = this.getView().byId("idWBS");
+			var oSelectedRow = oEvent.getParameter("selectedRow");
+			if (oSelectedRow) {
+				var oBindingContext = oSelectedRow.getBindingContext();
+				var oSelectedObject = oBindingContext.getObject();
+				oBudCodeInput.setValue(oSelectedObject.Posid);
+			}
+		},
 		// on Value Help(F4)
 		onEBSValueHelp: function () {
 			if (!this.wbsFrag) {

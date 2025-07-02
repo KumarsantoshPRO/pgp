@@ -3,17 +3,21 @@
     xmlns:core="sap.ui.core"
 >
     <SelectDialog
-        id="idSDwbsF4"
-        title="wbs"
+        id="idSDWBSV1F4"
+        title="Budget Code"
         noDataText="No Data"
-        search="onValueHelpSearch_wbs"
-        liveChange="onValueHelpSearch_wbs"
-        confirm="onValueHelpConfirm_wbs"
+        search="onValueHelpSearch_WBSV1"
+        liveChange="onValueHelpSearch_WBSV1"
+        confirm="onValueHelpConfirm_WBSV1"
+        cancel="onValueHelpCancel_WBSV1"
         contentWidth="250px"
+        multiSelect="true"
+        items="{/ZpsBudWbsSet}"
+        showClearButton="true"
     >
         <items>
             <StandardListItem
-                id="idSLwbsValueHelp"
+                id="idSLWBSV1ValueHelp"
                 title="{Posid}"
                 description="{Post1}"
                 wrapping="true"

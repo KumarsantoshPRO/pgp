@@ -19,6 +19,7 @@ sap.ui.define([
         },
         _onRouteMatched: function (oEvent) {
             this.definations();
+            this.loadF4Data();
             this.getView().byId("table").clearSelection();
             var nav = oEvent.getParameter("arguments").nav
             if (nav === 'null' || nav === undefined) {
@@ -26,6 +27,18 @@ sap.ui.define([
             } else {
                 this.readCall();
             }
+        },
+
+        loadF4Data: function () {
+            this.getOwnerComponent().getModel().read("/ZpsBudBdcodeSet", {
+                success: function (data) {
+
+                    this.getView().setModel(new JSONModel(data.results), "oModelBudCode");
+                }.bind(this),
+                error: function (sError) {
+
+                }.bind(this)
+            })
         },
         definations: function () {
             this.aFiltersList = [];
@@ -172,19 +185,20 @@ sap.ui.define([
             }
 
             // Budget Code MultiComboBox
-            var oStatusMultiComboBox = this.getView().byId("idBudCodeFilter");
-            var aSelectedStatuses = oStatusMultiComboBox.getSelectedKeys();
-            if (aSelectedStatuses && aSelectedStatuses.length > 0) {
-                var aStatusFilters = [];
-                aSelectedStatuses.forEach(function (sStatus) {
-                    aStatusFilters.push(new Filter("ZBUDG_CODE", FilterOperator.EQ, sStatus));
-                });
-                aFilters.push(new Filter({
-                    filters: aStatusFilters,
-                    and: false // OR condition for selected statuses
-                }));
-            }
+            // var oStatusMultiComboBox = this.getView().byId("idBudCodeFilter");
+            // var aSelectedStatuses = oStatusMultiComboBox.getSelectedKeys();
+            // if (aSelectedStatuses && aSelectedStatuses.length > 0) {
+            //     var aStatusFilters = [];
+            //     aSelectedStatuses.forEach(function (sStatus) {
+            //         aStatusFilters.push(new Filter("ZBUDG_CODE", FilterOperator.EQ, sStatus));
+            //     });
+            //     aFilters.push(new Filter({
+            //         filters: aStatusFilters,
+            //         and: false // OR condition for selected statuses
+            //     }));
+            // }
 
+            // Responsible MultiInput
             var oMultiInputRes = this.byId("idResponsible");
             var aTokensRes = oMultiInputRes.getTokens();
             if (aTokensRes && aTokensRes.length > 0) {
@@ -197,7 +211,20 @@ sap.ui.define([
                     and: false // OR condition for selected statuses
                 }));
             }
-
+            // Responsible Budget Code
+            var oMultiInputBudCode = this.byId("idBudgetCode");
+            var aTokensBudCode = oMultiInputBudCode.getTokens();
+            if (aTokensBudCode && aTokensBudCode.length > 0) {
+                var aStatusFilters = [];
+                aTokensBudCode.forEach(function (sStatus) {
+                    aStatusFilters.push(new Filter("ZBUDG_CODE", FilterOperator.Contains, sStatus.getProperty("key")));
+                });
+                aFilters.push(new Filter({
+                    filters: aStatusFilters,
+                    and: false // OR condition for selected statuses
+                }));
+            }
+            // HOD MultiInput
             var oMultiInputHOD = this.byId("idHod");
             var aTokensHOD = oMultiInputHOD.getTokens();
             if (aTokensHOD && aTokensHOD.length > 0) {
@@ -211,18 +238,18 @@ sap.ui.define([
                 }));
             }
             // Budget Code Description MultiComboBox
-            var oStatusMultiComboBox = this.getView().byId("idBudCodeDescrFilter");
-            var aSelectedStatuses = oStatusMultiComboBox.getSelectedKeys();
-            if (aSelectedStatuses && aSelectedStatuses.length > 0) {
-                var aStatusFilters = [];
-                aSelectedStatuses.forEach(function (sStatus) {
-                    aStatusFilters.push(new Filter("ZBUDG_DISC", FilterOperator.EQ, sStatus));
-                });
-                aFilters.push(new Filter({
-                    filters: aStatusFilters,
-                    and: false // OR condition for selected statuses
-                }));
-            }
+            // var oStatusMultiComboBox = this.getView().byId("idBudCodeDescrFilter");
+            // var aSelectedStatuses = oStatusMultiComboBox.getSelectedKeys();
+            // if (aSelectedStatuses && aSelectedStatuses.length > 0) {
+            //     var aStatusFilters = [];
+            //     aSelectedStatuses.forEach(function (sStatus) {
+            //         aStatusFilters.push(new Filter("ZBUDG_DISC", FilterOperator.EQ, sStatus));
+            //     });
+            //     aFilters.push(new Filter({
+            //         filters: aStatusFilters,
+            //         and: false // OR condition for selected statuses
+            //     }));
+            // }
 
             // Combine all individual MultiComboBox filters with an AND condition
             if (aFilters.length > 0) {
@@ -313,8 +340,9 @@ sap.ui.define([
             this.getView().byId("idSpendFilter").setSelectedKeys([]);
             this.getView().byId("idBusinessFilter").setSelectedKeys([]);
             this.getView().byId("idStatusFilter").setSelectedKeys([]);
-            this.getView().byId("idBudCodeFilter").setSelectedKeys([]);
-            this.getView().byId("idBudCodeDescrFilter").setSelectedKeys([]);
+            // this.getView().byId("idBudCodeFilter").setSelectedKeys([]);
+            // this.getView().byId("idBudCodeDescrFilter").setSelectedKeys([]);
+            this.getView().byId("idBudgetCode").setTokens([]);
             this.getView().byId("idHod").setTokens([]);
             this.getView().byId("idResponsible").setTokens([]);
             // Clear other MultiComboBoxes as needed
@@ -511,8 +539,100 @@ sap.ui.define([
             })
         },
         // F4 calls
-        // HOD
+        // Budget Code
+        onBudgetCodeSelected: function (oEvent) {
+            var oMultiInput = this.getView().byId("idBudgetCode");
+            var oSelectedRow = oEvent.getParameter("selectedRow");
+            if (oSelectedRow) {
+                var oBindingContext = oSelectedRow.getBindingContext();
+                var oSelectedObject = oBindingContext.getObject();
 
+                oMultiInput.addToken(new Token({
+                    key: oSelectedObject.ZbudgCode,
+                    text: oSelectedObject.ZbudgCode
+                }));
+            }
+        },
+        onBudgetCodeSuggestion: function (oEvent) {
+            var sValue = oEvent.getParameter('suggestValue'); // The current input value
+            var oBinding = oEvent.getSource().getBinding("suggestionRows");
+            if (oBinding) {
+                var aFilters = [];
+
+                if (sValue) {
+                    // Create filters for each column you want to search
+                    // Use FilterOperator.Contains for "contains" search
+                    aFilters.push(new Filter({
+                        filters: [
+                            new Filter("ZbudgCode", FilterOperator.Contains, sValue),
+                            new Filter("ZbudgDisc", FilterOperator.Contains, sValue)
+                        ],
+                        and: false // OR condition: show if any of the above fields contain the value
+                    }));
+                }
+
+                // Apply the filters to the suggestion items binding
+                oBinding.filter(aFilters);
+            }
+        },
+        // on Value Help(F4)
+        onBudgetCodeValueHelpRequest: function (oEvent) {
+            if (!this.BudCodeFrag) {
+                this.BudCodeFrag = sap.ui.xmlfragment(
+                    "pgp.com.budgetmaster.view.fragments.budCodeF4",
+                    this
+                );
+                this.getView().addDependent(this.BudCodeFrag);
+            }
+
+            this.BudCodeFrag.open();
+        },
+        // on Value Help - Search/liveChange
+
+        onValueHelpSearch_BudCode: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new Filter([
+                new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase())
+            ], false); // OR condition for search fields
+            var oBinding = oEvent.getSource().getBinding("items");
+            oBinding.filter([oFilter]);
+        },
+
+        onValueHelpConfirm_BudCode: function (oEvent) {
+            var aSelectedContexts = oEvent.getParameter("selectedContexts");
+            var aSelectedProducts = []; // Array to store full product objects
+            var aTokens = []; // Array to store sap.m.Token objects
+
+            if (aSelectedContexts && aSelectedContexts.length > 0) {
+                aSelectedContexts.forEach(function (oContext) {
+                    var oBudcode = oContext.getObject(); // Get the full data object
+
+                    // Add to the array of selected product objects
+                    aSelectedProducts.push(oBudcode);
+
+                    // Create a new Token for the MultiInput
+                    aTokens.push(new Token({
+                        key: oBudcode.ZbudgCode,
+                        text: oBudcode.ZbudgCode
+                    }));
+                });
+            }
+
+            // Update the MultiInput's tokens
+            this.getView().byId("idBudgetCode").setTokens(aTokens);
+
+            // Update the model's 'selectedProducts' array
+            this.getView().getModel().setProperty("/ZpsBudBdcodeSet", aSelectedProducts);
+
+            // Close the dialog
+            oEvent.getSource().close();
+        },
+        onValueHelpCancel_BudCode: function (oEvent) {
+            // Just close the dialog without making changes
+            oEvent.getSource().close();
+        },
+
+        // HOD
         onHODSelected: function (oEvent) {
             var oMultiInput = this.getView().byId("idHod");
             var oSelectedRow = oEvent.getParameter("selectedRow");

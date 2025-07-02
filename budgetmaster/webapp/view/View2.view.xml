@@ -14,9 +14,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title
-                        text="{=${oModel>/ZBUDG_CODE}?${oModel>/ZBUDG_CODE}:'Project Details'}"
-                    />
+                    <Title text="{oModelTempValue>/title}" />
                 </f:heading>
                 <f:actions>
                     <!-- <Button
@@ -158,7 +156,7 @@
                     >
                         <core:Item
                             key="{Werks}"
-                            text="{Name1}"
+                            text="{Werks}-{Name1}"
                         />
                     </Select>
                     <!-- <Input
@@ -193,9 +191,9 @@
                         value="{oModel>/ZREMARKS}"
                         editable="{oPropertyModel>/editClicked}"
                     />
-                    <Label text="Budet Code Description" />
+                    <Label text="Budget Code Description" />
                     <Input
-                        placeholder="Budet Code Description"
+                        placeholder="Budget Code Description"
                         value="{oModel>/ZBUDG_DISC}"
                         editable="{oPropertyModel>/editClicked}"
                     />

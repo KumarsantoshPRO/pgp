@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="idSDWBSV2F4Single"
+        title="Budget Code"
+        noDataText="No Data"
+        search="onValueHelpSearch_WBSV2Single"
+        liveChange="onValueHelpSearch_WBSV2Single"
+        confirm="onValueHelpConfirm_WBSV2Single"
+        cancel="onValueHelpCancel_WBSV2Single"
+        contentWidth="250px"
+        multiSelect="false"
+        items="{/ZpsBudWbsSet}"
+        showClearButton="true"
+    >
+        <items>
+            <StandardListItem
+                id="idSLWBSV2ValueHelpSingle"
+                title="{Posid}"
+                description="{Post1}"
+                wrapping="true"
+            />
+        </items>
+    </SelectDialog>
+</core:FragmentDefinition>

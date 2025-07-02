@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="idSDBudCodeF4"
+        title="Budget Code"
+        noDataText="No Data"
+        search="onValueHelpSearch_BudCode"
+        liveChange="onValueHelpSearch_BudCode"
+        confirm="onValueHelpConfirm_BudCode"
+        cancel="onValueHelpCancel_BudCode"
+        contentWidth="250px"
+        multiSelect="true"
+        items="{/ZpsBudBdcodeSet}"
+        showClearButton="true"
+    >
+        <items>
+            <StandardListItem
+                id="idSLBudCodeValueHelp"
+                title="{ZbudgCode}"
+                description="{ZbudgDisc}"
+                wrapping="true"
+            />
+        </items>
+    </SelectDialog>
+</core:FragmentDefinition>

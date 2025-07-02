@@ -7,7 +7,7 @@
     xmlns:core="sap.ui.core"
     xmlns:fb="sap.ui.comp.filterbar"
 >
-    <Page title="Budget Master Assignments">
+    <Page title="Budget Master Assignments" enableScrolling="false">
         <content>
             <fb:FilterBar
                 persistencyKey="myPersKey"
@@ -25,7 +25,7 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <MultiComboBox
+                            <!-- <MultiComboBox
                                 id="idBudget"
                                 items="{/ZpsBudBdcodeSet}"
                             >
@@ -33,7 +33,36 @@
                                     key="{ZbudgCode}"
                                     text="{ZbudgCode}"
                                 />
-                            </MultiComboBox>
+                            </MultiComboBox> -->
+                            <MultiInput
+                                id="idBudgetCode"
+                                placeholder="Enter Budget Code/Description"
+                                showValueHelp="true"
+                                valueHelpRequest="onBudgetCodeValueHelpRequest"
+                                showSuggestion="true"
+                                valueLiveUpdate="true"
+                                suggestionItemSelected="onBudgetCodeSelected"
+                                suggestionRows="{
+				path: '/ZpsBudBdcodeSet'
+			}"
+                            >
+                                <!-- filterSuggests="false"
+                                suggest="onBudgetCodeSuggestion" -->
+                                <suggestionColumns>
+                                    <Column>
+                                        <Label text="Budget Code" />
+                                    </Column>
+                                    <Column>
+                                        <Label text="Description" />
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{ZbudgCode}" />
+                                        <Label text="{ZbudgDisc}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem
@@ -70,13 +99,14 @@
                                 value="{oModelFilter>/WBS} "
                                 valueHelpOnly="true"
                             /> -->
-
+ 
                             <MultiInput
                                 id="idWBS"
                                 placeholder="Enter WBS"
-                                showValueHelp="false"
+                                showValueHelp="true"
                                 showSuggestion="true"
                                 valueLiveUpdate="true"
+                                valueHelpRequest="onWBSValueHelpRequest"
                                 suggestionItemSelected="onWBSSelected"
                                 suggestionRows="{
 				path: '/ZpsBudWbsSet'
@@ -174,7 +204,10 @@
                             <Text text="{path:'ModelForTable>ZBUDG_DISC'}" />
                         </Table:template>
                     </Table:Column>
-                    <Table:Column sortProperty="ZWBS_YEAR">
+                    <Table:Column
+                        sortProperty="ZWBS_YEAR"
+                        width="8rem"
+                    >
                         <Label
                             text="Financial Year"
                             wrapping="true"
@@ -190,7 +223,12 @@
                             wrapping="true"
                         />
                         <Table:template>
-                            <Text text="{path:'ModelForTable>POSID'}" />
+                            <!-- <Text text="{path:'ModelForTable>POSID'}" /> -->
+
+                            <ObjectIdentifier
+                                title='{ModelForTable>POSID}'
+                                text='{ModelForTable>WBSDescr}'
+                            />
                         </Table:template>
                     </Table:Column>
                 </Table:columns>

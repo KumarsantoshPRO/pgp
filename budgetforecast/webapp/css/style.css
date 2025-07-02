@@ -1,1 +1,11 @@
 /* Enter your custom styles here */
+/* Targeting the icon within a button */
+.myCustomIconStyle .sapMBtnIcon {
+    color: purple !important; /* Use !important if necessary to override default styles */
+ 
+}
+
+/* Targeting a general icon control */
+.myCustomIconClass .sapUiIcon {
+    color: orange;
+}
