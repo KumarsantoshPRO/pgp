@@ -40,6 +40,20 @@ sap.ui.define([
 				ResName: ""
 			}
 			this.getView().setModel(new JSONModel(tempValue), "oModelTempValue");
+
+			// For HOD Value help
+			var oModel = this.getOwnerComponent().getModel();
+			var sPath = "/ZpsBudPerHodSet";
+			this.getView().setBusy(true);
+			oModel.read(sPath, {
+				success: function (data) {
+					this.getView().setModel(new JSONModel(data), "oModelForEmployee");
+					this.getView().setBusy(false);
+				}.bind(this),
+				error: function () {
+					this.getView().setBusy(false);
+				}.bind(this)
+			});
 		},
 		_onRouteMatched: function (oEvent) {
 			this.createLocalModel();
@@ -50,7 +64,7 @@ sap.ui.define([
 			} else {
 				this.nav = nav.split("$")[1];
 				this.action = nav.split("$")[0];
-				debugger;
+
 				this.readCall(this.nav);
 				this.screenBehave(this.nav);
 
@@ -111,6 +125,28 @@ sap.ui.define([
 				title: "Project Details"
 			};
 			this.getView().setModel(new JSONModel(tempValues), "oModelTempValue");
+			// For HOD Value help
+			var oModel = this.getOwnerComponent().getModel();
+			var sPath = "/ZpsBudPerHodSet";
+			this.getView().setBusy(true);
+			oModel.read(sPath, {
+				success: function (data) {
+
+					oModel.read(sPath, {
+						success: function (aData) {
+							this.getView().setModel(new JSONModel(aData), "oModelForEmployee");
+							this.getView().setBusy(false);
+
+						}.bind(this),
+						error: function () { }.bind(this)
+					});
+
+
+				}.bind(this),
+				error: function (sError) {
+					this.getView().setBusy(false);
+				}.bind(this)
+			});
 		},
 		readCall: function (nav) {
 			var oModel = this.getOwnerComponent().getModel();
@@ -311,7 +347,7 @@ sap.ui.define([
 
 			var aFilter = [];
 			sap.ui.getCore().byId("idSDhodF4").bindAggregation("items", {
-				path: "/ZpsBudPerHodSet",
+				path: "oModelForEmployee>/results",
 				filters: aFilter,
 				template: this._hodTemp,
 			});
@@ -324,18 +360,26 @@ sap.ui.define([
 			var aFilter = [];
 			var sValue = oEvent.getParameter("value");
 			var sPath = "/ZpsBudPerHodSet";
-			var oSelectDialog = sap.ui.getCore().byId(oEvent.getParameter("id"));
+			// var oSelectDialog = sap.ui.getCore().byId(oEvent.getParameter("id"));
 
-			var oFilterName = new Filter(
-				[new Filter("NameTextc", FilterOperator.Contains, sValue)],
-				false
-			);
-			aFilter.push(oFilterName);
+			// var oFilterName = new Filter(
+			// 	[new Filter("NameTextc", FilterOperator.Contains, sValue)],
+			// 	false
+			// );
+			// aFilter.push(oFilterName);
+			var oCombinedFilter = new Filter({
+				filters: [
+					new Filter("NameTextc", FilterOperator.Contains, sValue),
+					new Filter("Bname", FilterOperator.Contains, sValue)
+				],
+				and: false // This makes it an OR condition
+			});
+			aFilter.push(oCombinedFilter);
 
-			oSelectDialog.bindAggregation("items", {
-				path: sPath,
+			sap.ui.getCore().byId("idSDhodF4").bindAggregation("items", {
+				path: "oModelForEmployee>/results",
 				filters: aFilter,
-				template: this.hodFrag,
+				template: this._hodTemp,
 			});
 		},
 
@@ -352,7 +396,7 @@ sap.ui.define([
 		},
 		// resp
 		// on Value Help(F4)
-		onresValueHelp: function () {
+		onResValueHelp: function () {
 			if (!this.resFrag) {
 				this.resFrag = sap.ui.xmlfragment(
 					"pgp.com.budgetmaster.view.fragments.resF4",
@@ -367,7 +411,7 @@ sap.ui.define([
 
 			var aFilter = [];
 			sap.ui.getCore().byId("idSDresF4").bindAggregation("items", {
-				path: "/ZpsBudPerHodSet",
+				path: "oModelForEmployee>/results",
 				filters: aFilter,
 				template: this._resTemp,
 			});
@@ -379,19 +423,22 @@ sap.ui.define([
 		onValueHelpSearch_res: function (oEvent) {
 			var aFilter = [];
 			var sValue = oEvent.getParameter("value");
-			var sPath = "/ZpsBudPerHodSet";
+			var sPath = "oModelForEmployee>/results";
 			var oSelectDialog = sap.ui.getCore().byId(oEvent.getParameter("id"));
 
-			var oFilterName = new Filter(
-				[new Filter("NameTextc", FilterOperator.Contains, sValue)],
-				false
-			);
-			aFilter.push(oFilterName);
+			var oCombinedFilter = new Filter({
+				filters: [
+					new Filter("NameTextc", FilterOperator.Contains, sValue),
+					new Filter("Bname", FilterOperator.Contains, sValue)
+				],
+				and: false // This makes it an OR condition
+			});
+			aFilter.push(oCombinedFilter);
 
-			oSelectDialog.bindAggregation("items", {
-				path: sPath,
+			sap.ui.getCore().byId("idSDresF4").bindAggregation("items", {
+				path: "oModelForEmployee>/results",
 				filters: aFilter,
-				template: this.resFrag,
+				template: this._resTemp,
 			});
 		},
 

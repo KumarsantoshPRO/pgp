@@ -14,8 +14,8 @@
         <items>
             <StandardListItem
                 id="idSLresValueHelp"
-                title="{Bname}"
-                description="{NameTextc}"
+                title="{oModelForEmployee>Bname}"
+                description="{oModelForEmployee>NameTextc}"
                 wrapping="true"
                 
             />

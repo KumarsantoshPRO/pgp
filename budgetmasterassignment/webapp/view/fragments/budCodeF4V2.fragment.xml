@@ -12,14 +12,14 @@
         cancel="onValueHelpCancel_BudCodeV2"
         contentWidth="250px"
         multiSelect="false"
-        items="{/ZpsBudBdcodeSet}"
+        items="{oModelForBudCode>/results}"
         showClearButton="true"
     >
         <items>
             <StandardListItem
                 id="idSLBudCodeV2ValueHelp"
-                title="{ZbudgCode}"
-                description="{ZbudgDisc}"
+                title="{oModelForBudCode>ZbudgCode}"
+                description="{oModelForBudCode>ZbudgDisc}"
                 wrapping="true"
             />
         </items>

@@ -386,6 +386,24 @@
                     </OverflowToolbar>
                 </Table:extension>
                 <Table:columns>
+                    <Table:Column sortProperty="ZBUDG_CODE">
+                        <Label
+                            text="Budget Code"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>ZBUDG_CODE}" />
+                        </Table:template>
+                    </Table:Column>
+                    <Table:Column sortProperty="ZBUDG_DISC">
+                        <Label
+                            text="Budet Code Description"
+                            wrapping="true"
+                        />
+                        <Table:template>
+                            <Text text="{ModelForTable>ZBUDG_DISC}" />
+                        </Table:template>
+                    </Table:Column>
                     <Table:Column
                         id="PRJ_TYPE"
                         sortProperty="PRJ_TYPE"
@@ -517,24 +535,6 @@
                             <Text
                                 text="{=${ModelForTable>ZBUDG_STATUS} ? 'Active':'Inactive'}"
                             />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column sortProperty="ZBUDG_DISC">
-                        <Label
-                            text="Budet Code Description"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZBUDG_DISC}" />
-                        </Table:template>
-                    </Table:Column>
-                    <Table:Column sortProperty="ZBUDG_CODE">
-                        <Label
-                            text="Budget Code"
-                            wrapping="true"
-                        />
-                        <Table:template>
-                            <Text text="{ModelForTable>ZBUDG_CODE}" />
                         </Table:template>
                     </Table:Column>
                 </Table:columns>

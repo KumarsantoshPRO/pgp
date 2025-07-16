@@ -48,6 +48,21 @@
                 layout="ColumnLayout"
             >
                 <form:content>
+                    <Label
+                        text="Budget Code"
+                        visible="{oPropertyModel>/budCodeVisible}"
+                    />
+                    <Input
+                        value="{oModel>/ZBUDG_CODE}"
+                        editable="false"
+                        visible="{oPropertyModel>/budCodeVisible}"
+                    />
+                    <Label text="Budget Code Description" />
+                    <Input
+                        placeholder="Budget Code Description"
+                        value="{oModel>/ZBUDG_DISC}"
+                        editable="{oPropertyModel>/editClicked}"
+                    />
                     <Label text="Project/BAU" />
                     <Select
                         selectedKey="{oModel>/PRJ_TYPE}"
@@ -169,7 +184,7 @@
                         showValueHelp="true"
                         placeholder="Responsible"
                         showSuggestion="true"
-                        valueHelpRequest="onresValueHelp"
+                        valueHelpRequest="onResValueHelp"
                         value="{oModelTempValue>/ResName}{oModel>/ZWBS_OWNER}"
                         editable="{oPropertyModel>/editClicked}"
                         valueHelpOnly="true"
@@ -191,12 +206,7 @@
                         value="{oModel>/ZREMARKS}"
                         editable="{oPropertyModel>/editClicked}"
                     />
-                    <Label text="Budget Code Description" />
-                    <Input
-                        placeholder="Budget Code Description"
-                        value="{oModel>/ZBUDG_DISC}"
-                        editable="{oPropertyModel>/editClicked}"
-                    />
+
                     <Label text="Active / Inactive" />
 
                     <Select
@@ -213,15 +223,7 @@
                             text="Inactive"
                         />
                     </Select>
-                    <Label
-                        text="Budget Code"
-                        visible="{oPropertyModel>/budCodeVisible}"
-                    />
-                    <Input
-                        value="{oModel>/ZBUDG_CODE}"
-                        editable="false"
-                        visible="{oPropertyModel>/budCodeVisible}"
-                    />
+
                     <!-- <Label text="Budget Code Description" visible="{oPropertyModel>/budCodeVisible}"/>
                     <Input
                         value="{oModel>/ZBUDG_DISC}"

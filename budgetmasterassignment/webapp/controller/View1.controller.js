@@ -38,7 +38,32 @@ sap.ui.define([
             };
             this.getView().setModel(new JSONModel(oDataForFilters), "oModelFilter");
 
+            // For Budget Code F4
+            var oModel = this.getOwnerComponent().getModel();
+            var sPath = "/ZpsBudBdcodeSet";
+            this.getView().setBusy(true);
+            oModel.read(sPath, {
+                success: function (data) {
+                    this.getView().setModel(new JSONModel(data), "oModelForBudCode");
+                    this.getView().setBusy(false);
+                }.bind(this),
+                error: function (sError) {
+                    this.getView().setBusy(false);
+                }.bind(this)
+            });
 
+            // For WBS F4
+            var sPathWBS = "/ZpsBudWbsSet";
+            this.getView().setBusy(true);
+            oModel.read(sPathWBS, {
+                success: function (data) {
+                    this.getView().setModel(new JSONModel(data), "oModelForWBS");
+                    this.getView().setBusy(false);
+                }.bind(this),
+                error: function (sError) {
+                    this.getView().setBusy(false);
+                }.bind(this)
+            });
 
         },
         onResetButtonPress: function () {
@@ -351,7 +376,8 @@ sap.ui.define([
         onValueHelpSearch_BudCode: function (oEvent) {
             var sValue = oEvent.getParameter("value");
             var oFilter = new Filter([
-                new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase())
+                new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase()),
+                new Filter("ZbudgDisc", FilterOperator.Contains, sValue.toUpperCase())
             ], false); // OR condition for search fields
             var oBinding = oEvent.getSource().getBinding("items");
             oBinding.filter([oFilter]);
@@ -416,7 +442,8 @@ sap.ui.define([
         onValueHelpSearch_WBSV1: function (oEvent) {
             var sValue = oEvent.getParameter("value");
             var oFilter = new Filter([
-                new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase())
+                new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase()),
+                new Filter("Post1", FilterOperator.Contains, sValue.toUpperCase())
             ], false); // OR condition for search fields
             var oBinding = oEvent.getSource().getBinding("items");
             oBinding.filter([oFilter]);

@@ -50,10 +50,10 @@ sap.ui.define([
 			var years = [];
 			var currentYear = new Date().getFullYear();
 			var lastTolastFinancialYear = (currentYear - 2).toString() + "-" + (currentYear - 1).toString(),
-				lastFinancialYear = (currentYear - 1).toString() + "-" + (currentYear).toString(),
-				currentFinancialYear = (currentYear).toString() + "-" + (currentYear + 1).toString();
+				lastFinancialYear = (currentYear - 1).toString() + "-" + (currentYear).toString();
+			// currentFinancialYear = (currentYear).toString() + "-" + (currentYear + 1).toString();
 
-			var years = [{ year: lastTolastFinancialYear }, { year: lastFinancialYear }, { year: currentFinancialYear }];
+			var years = [{ year: lastTolastFinancialYear }, { year: lastFinancialYear }];
 			this.getView().setModel(new JSONModel(years), "oModelYear");
 			// For screen behavior 
 			var properties = {
@@ -88,6 +88,7 @@ sap.ui.define([
 				this.getView().getModel("oPropertyModel").setProperty("/copyButton", false);
 				this.getView().getModel("oPropertyModel").setProperty("/deleteButton", false);
 				this.getView().getModel("oPropertyModel").setProperty("/cancelButton", true);
+				this.getView().getModel("oPropertyModel").setProperty("/multiInput", true);
 				this.createLocalModel();
 			} else {
 				this.getView().byId("idWBSV2Single").setValue("");
@@ -101,6 +102,7 @@ sap.ui.define([
 				this.getView().getModel("oPropertyModel").setProperty("/copyButton", true);
 				this.getView().getModel("oPropertyModel").setProperty("/deleteButton", true);
 				this.getView().getModel("oPropertyModel").setProperty("/cancelButton", false);
+				this.getView().getModel("oPropertyModel").setProperty("/multiInput", false);
 				this.readCall(nav);
 			}
 		},
@@ -119,6 +121,33 @@ sap.ui.define([
 				title: "Assignments Details"
 			};
 			this.getView().setModel(new JSONModel(tempValues), "oModelTempValue");
+
+			// For Budget Code F4
+			var oModel = this.getOwnerComponent().getModel();
+			var sPath = "/ZpsBudBdcodeSet";
+			this.getView().setBusy(true);
+			oModel.read(sPath, {
+				success: function (data) {
+					this.getView().setModel(new JSONModel(data), "oModelForBudCode");
+					this.getView().setBusy(false);
+				}.bind(this),
+				error: function (sError) {
+					this.getView().setBusy(false);
+				}.bind(this)
+			});
+			// For WBS F4
+			var sPathWBS = "/ZpsBudWbsSet";	
+			this.getView().setBusy(true);
+			oModel.read(sPathWBS, {
+				success: function (data) {
+					this.getView().setModel(new JSONModel(data), "oModelForWBS");
+					this.getView().setBusy(false);
+				}.bind(this),
+				error: function (sError) {
+					this.getView().setBusy(false);
+				}.bind(this)
+			});
+
 		},
 		onBudCodeSetSelectChange: function (oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
@@ -149,13 +178,13 @@ sap.ui.define([
 					}
 					if (this.action === "copy") {
 						this.getView().getModel("oPropertyModel").setProperty("/singleInput", false);
-						this.getView().getModel("oPropertyModel").setProperty("/multiInput", true);	
+						this.getView().getModel("oPropertyModel").setProperty("/multiInput", true);
 						this.getView().getModel("oModelTempValue").setProperty("/title", "Assignments Details");
 						this.onCopyButtonPress();
 					}
 					if (this.action === "delete") {
 						this.getView().getModel("oPropertyModel").setProperty("/singleInput", false);
-						this.getView().getModel("oPropertyModel").setProperty("/multiInput", true);						
+						this.getView().getModel("oPropertyModel").setProperty("/multiInput", true);
 						this.getView().getModel("oModelTempValue").setProperty("/title", data.ZBUDG_CODE);
 						this.onDeleteButtonPress();
 					}
@@ -328,7 +357,7 @@ sap.ui.define([
 				oSinglInput.setValue(oSelectedObject.Posid)
 			}
 		},
-			// on Value Help(F4)
+		// on Value Help(F4)
 		onWBSValueHelpRequestSingle: function (oEvent) {
 			if (!this.WBSFragSingle) {
 				this.WBSFragSingle = sap.ui.xmlfragment(
@@ -344,14 +373,15 @@ sap.ui.define([
 		onValueHelpSearch_WBSV2Single: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 			var oFilter = new Filter([
-				new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase())
+				new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase()),
+				new Filter("Post1", FilterOperator.Contains, sValue.toUpperCase())
 			], false); // OR condition for search fields
 			var oBinding = oEvent.getSource().getBinding("items");
 			oBinding.filter([oFilter]);
 		},
 		// Confirm
 		onValueHelpConfirm_WBSV2Single: function (oEvent) {
-		var selectedWBS = oEvent.getParameter("selectedItem").getTitle();
+			var selectedWBS = oEvent.getParameter("selectedItem").getTitle();
 			var oModel = this.getView().getModel("oModel");
 			oModel.setProperty("/POSID", selectedWBS);
 		},
@@ -385,7 +415,8 @@ sap.ui.define([
 		onValueHelpSearch_WBSV2: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 			var oFilter = new Filter([
-				new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase())
+				new Filter("Posid", FilterOperator.Contains, sValue.toUpperCase()),
+				new Filter("Post1", FilterOperator.Contains, sValue.toUpperCase())
 			], false); // OR condition for search fields
 			var oBinding = oEvent.getSource().getBinding("items");
 			oBinding.filter([oFilter]);
@@ -469,7 +500,8 @@ sap.ui.define([
 		onValueHelpSearch_BudCodeV2: function (oEvent) {
 			var sValue = oEvent.getParameter("value");
 			var oFilter = new Filter([
-				new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase())
+				new Filter("ZbudgCode", FilterOperator.Contains, sValue.toUpperCase()),
+				new Filter("ZbudgDisc", FilterOperator.Contains, sValue.toUpperCase())
 			], false); // OR condition for search fields
 			var oBinding = oEvent.getSource().getBinding("items");
 			oBinding.filter([oFilter]);
